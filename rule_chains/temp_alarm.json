@@ -1,0 +1,115 @@
+{
+  "ruleChain": {
+    "additionalInfo": null,
+    "name": "Temp alarm",
+    "firstRuleNodeId": null,
+    "root": false,
+    "debugMode": false,
+    "configuration": null
+  },
+  "metadata": {
+    "firstNodeIndex": 1,
+    "nodes": [
+      {
+        "additionalInfo": {
+          "layoutX": 518,
+          "layoutY": 276
+        },
+        "type": "org.thingsboard.rule.engine.action.TbCreateAlarmNode",
+        "name": "Create alarm",
+        "debugMode": false,
+        "configuration": {
+          "alarmType": "Critical temperature",
+          "alarmDetailsBuildJs": "var details = {};\nif (metadata.prevAlarmDetails) {\n    details = JSON.parse(metadata.prevAlarmDetails);\n}\nreturn details;",
+          "severity": "CRITICAL",
+          "propagate": true,
+          "useMessageAlarmData": false,
+          "relationTypes": []
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 346,
+          "layoutY": 150
+        },
+        "type": "org.thingsboard.rule.engine.filter.TbJsFilterNode",
+        "name": "Temperature check",
+        "debugMode": false,
+        "configuration": {
+          "jsScript": "return msg.temperature > 50;"
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 226,
+          "layoutY": 273
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbTransformMsgNode",
+        "name": "Add temp to meta data",
+        "debugMode": false,
+        "configuration": {
+          "jsScript": "metadata.temperature = msg.temperature;\nreturn {msg: msg, metadata: metadata, msgType: msgType};"
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 891,
+          "layoutY": 235
+        },
+        "type": "org.thingsboard.rule.engine.mail.TbSendEmailNode",
+        "name": "Send email",
+        "debugMode": false,
+        "configuration": {
+          "useSystemSmtpSettings": true,
+          "smtpHost": "localhost",
+          "smtpPort": 25,
+          "username": null,
+          "password": null,
+          "smtpProtocol": "smtp",
+          "timeout": 10000,
+          "enableTls": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 676,
+          "layoutY": 151
+        },
+        "type": "org.thingsboard.rule.engine.mail.TbMsgToEmailNode",
+        "name": "Temp to email",
+        "debugMode": false,
+        "configuration": {
+          "fromTemplate": "noreply@endtoendiot.co.uk",
+          "toTemplate": "leighton0102@gmail.com",
+          "ccTemplate": null,
+          "bccTemplate": null,
+          "subjectTemplate": "Device ${deviceType} temperature high",
+          "bodyTemplate": "Device ${deviceName} has high temperature ${temperature} deg C."
+        }
+      }
+    ],
+    "connections": [
+      {
+        "fromIndex": 0,
+        "toIndex": 4,
+        "type": "Created"
+      },
+      {
+        "fromIndex": 1,
+        "toIndex": 2,
+        "type": "True"
+      },
+      {
+        "fromIndex": 2,
+        "toIndex": 0,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 4,
+        "toIndex": 3,
+        "type": "Success"
+      }
+    ],
+    "ruleChainConnections": null
+  }
+}

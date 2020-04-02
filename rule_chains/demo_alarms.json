@@ -1,0 +1,16 @@
+{
+  "ruleChain": {
+    "additionalInfo": null,
+    "name": "Demo Alarms",
+    "firstRuleNodeId": null,
+    "root": false,
+    "debugMode": true,
+    "configuration": null
+  },
+  "metadata": {
+    "firstNodeIndex": null,
+    "nodes": [],
+    "connections": null,
+    "ruleChainConnections": null
+  }
+}

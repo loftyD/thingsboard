@@ -1,0 +1,120 @@
+{
+  "ruleChain": {
+    "additionalInfo": null,
+    "name": "Bin Statuses",
+    "firstRuleNodeId": null,
+    "root": false,
+    "debugMode": false,
+    "configuration": null
+  },
+  "metadata": {
+    "firstNodeIndex": 0,
+    "nodes": [
+      {
+        "additionalInfo": {
+          "layoutX": 216,
+          "layoutY": 333
+        },
+        "type": "org.thingsboard.rule.engine.filter.TbJsFilterNode",
+        "name": "Is Bin?",
+        "debugMode": false,
+        "configuration": {
+          "jsScript": "return metadata.deviceType === \"DistanceBin\""
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 357,
+          "layoutY": 138
+        },
+        "type": "org.thingsboard.rule.engine.metadata.TbGetAttributesNode",
+        "name": "Fetch Level Thresholds",
+        "debugMode": false,
+        "configuration": {
+          "clientAttributeNames": [],
+          "sharedAttributeNames": [
+            "level_warning",
+            "level_critical"
+          ],
+          "serverAttributeNames": [],
+          "latestTsKeyNames": [],
+          "tellFailureIfAbsent": true,
+          "getLatestValueWithTs": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 469,
+          "layoutY": 282
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbTransformMsgNode",
+        "name": "calculate thresholds",
+        "debugMode": false,
+        "configuration": {
+          "jsScript": "var message = msg;\n\nif(msg.level >= metadata.shared_level_critical) {\n    message.level_status = \"critical\";\n} else if(msg.level >= metadata.shared_level_warning) {\n    message.level_status = \"warning\";\n} else {\n    message.level_status = 'ok';\n}\n\nreturn {msg: message, metadata: metadata, msgType: msgType};"
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 724,
+          "layoutY": 285
+        },
+        "type": "org.thingsboard.rule.engine.telemetry.TbMsgTimeseriesNode",
+        "name": "save",
+        "debugMode": false,
+        "configuration": {
+          "defaultTTL": 0
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 478,
+          "layoutY": 421
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbTransformMsgNode",
+        "name": "prepare for groups",
+        "debugMode": false,
+        "configuration": {
+          "jsScript": "metadata['groupRootName'] = 'level';\nmetadata['groupKey'] = 'level_status';\n\nreturn {msg: msg, metadata: metadata, msgType: msgType};"
+        }
+      }
+    ],
+    "connections": [
+      {
+        "fromIndex": 0,
+        "toIndex": 1,
+        "type": "True"
+      },
+      {
+        "fromIndex": 1,
+        "toIndex": 2,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 2,
+        "toIndex": 3,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 2,
+        "toIndex": 4,
+        "type": "Success"
+      }
+    ],
+    "ruleChainConnections": [
+      {
+        "fromIndex": 4,
+        "targetRuleChainId": {
+          "entityType": "RULE_CHAIN",
+          "id": "706c0540-6e83-11ea-baf2-6ff88ec57aeb"
+        },
+        "additionalInfo": {
+          "layoutX": 721,
+          "layoutY": 418,
+          "ruleChainNodeId": "rule-chain-node-7"
+        },
+        "type": "Success"
+      }
+    ]
+  }
+}

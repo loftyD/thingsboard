@@ -1,0 +1,563 @@
+{
+  "ruleChain": {
+    "additionalInfo": null,
+    "name": "Demo Data Generator",
+    "firstRuleNodeId": null,
+    "root": false,
+    "debugMode": true,
+    "configuration": null
+  },
+  "metadata": {
+    "firstNodeIndex": null,
+    "nodes": [
+      {
+        "additionalInfo": {
+          "layoutX": 472,
+          "layoutY": 770
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbTransformMsgNode",
+        "name": "calculate percent occupied",
+        "debugMode": true,
+        "configuration": {
+          "jsScript": "var totalBays = metadata['total_bays'];\nvar totalParked = metadata['total_parked'];\nvar percentOccupied;\n\n\n\nif(totalBays === 0 || totalParked === 0) {\n    percentOccupied = 100;\n} else {\n    percentOccupied = (totalParked / totalBays) * 100;\n}\n\nmsg['percent_occupied'] = percentOccupied;\n\nreturn {msg: msg, metadata: metadata, msgType: msgType};"
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 35,
+          "layoutY": 781
+        },
+        "type": "org.thingsboard.rule.engine.analytics.latest.telemetry.TbAggLatestTelemetryNode",
+        "name": "Demo Car Park Aggregate",
+        "debugMode": true,
+        "configuration": {
+          "parentEntitiesQuery": {
+            "type": "relationsQuery",
+            "rootEntityId": {
+              "entityType": "ASSET",
+              "id": "e82d74c0-6cf2-11ea-baf2-6ff88ec57aeb"
+            },
+            "relationsQuery": {
+              "direction": "FROM",
+              "maxLevel": 5,
+              "filters": [
+                {
+                  "relationType": "Contains",
+                  "entityTypes": [
+                    "ASSET"
+                  ]
+                }
+              ]
+            },
+            "childRelationsQuery": {
+              "direction": "FROM",
+              "maxLevel": 6,
+              "filters": [
+                {
+                  "relationType": "Contains",
+                  "entityTypes": [
+                    "DEVICE"
+                  ]
+                }
+              ]
+            }
+          },
+          "periodTimeUnit": "MINUTES",
+          "periodValue": 1,
+          "aggMappings": [
+            {
+              "source": "",
+              "sourceScope": "LATEST_TELEMETRY",
+              "defaultValue": 0,
+              "target": "total_bays",
+              "aggFunction": "COUNT",
+              "filter": {
+                "clientAttributeNames": [],
+                "sharedAttributeNames": [],
+                "serverAttributeNames": [],
+                "latestTsKeyNames": [
+                  "is_parked"
+                ],
+                "filterFunction": "return (attributes.hasOwnProperty('is_parked'));"
+              }
+            },
+            {
+              "source": "",
+              "sourceScope": "LATEST_TELEMETRY",
+              "defaultValue": 0,
+              "target": "total_parked",
+              "aggFunction": "COUNT",
+              "filter": {
+                "clientAttributeNames": [],
+                "sharedAttributeNames": [],
+                "serverAttributeNames": [],
+                "latestTsKeyNames": [
+                  "is_parked"
+                ],
+                "filterFunction": "if (attributes.hasOwnProperty('is_parked')) {\n    return (attributes.is_parked === 'true');\n} else {\n    return false;s\n}"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 330,
+          "layoutY": 278
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbDuplicateMsgToGroupNode",
+        "name": "send to all demo sensors",
+        "debugMode": true,
+        "configuration": {
+          "entityGroupId": {
+            "entityType": "ENTITY_GROUP",
+            "id": "8785c9f0-6861-11ea-baf2-6ff88ec57aeb"
+          },
+          "entityGroupIsMessageOriginator": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 741,
+          "layoutY": 407
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbTransformMsgNode",
+        "name": "Generate demo parking data",
+        "debugMode": true,
+        "configuration": {
+          "jsScript": "var previousState = (metadata.is_parked === 'true');\nvar shouldChange = (Math.random() > 0.95);\n\nvar message = {\n    is_parked: shouldChange ? !previousState : previousState,\n}\n\nreturn {msg: message, metadata: metadata, msgType: msgType};"
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 38,
+          "layoutY": 408
+        },
+        "type": "org.thingsboard.rule.engine.filter.TbJsSwitchNode",
+        "name": "Demo Sensor Type",
+        "debugMode": true,
+        "configuration": {
+          "jsScript": "return metadata.originatorType;"
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 19,
+          "layoutY": 275
+        },
+        "type": "org.thingsboard.rule.engine.debug.TbMsgGeneratorNode",
+        "name": "message seeder",
+        "debugMode": true,
+        "configuration": {
+          "msgCount": 0,
+          "periodInSeconds": 30,
+          "originatorId": "c8ba2eb0-6862-11ea-baf2-6ff88ec57aeb",
+          "originatorType": "DEVICE",
+          "jsScript": "var msg = prevMsg;\nvar metadata = prevMetadata;\nvar msgType = \"POST_TELEMETRY_REQUEST\";\n\nreturn { msg: msg, metadata: metadata, msgType: msgType };"
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 631,
+          "layoutY": 278
+        },
+        "type": "org.thingsboard.rule.engine.metadata.TbGetOriginatorFieldsNode",
+        "name": "repopulate metadata",
+        "debugMode": true,
+        "configuration": {
+          "fieldsMapping": {
+            "name": "originatorName",
+            "type": "originatorType"
+          }
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 424,
+          "layoutY": 407
+        },
+        "type": "org.thingsboard.rule.engine.metadata.TbGetAttributesNode",
+        "name": "Add previous value",
+        "debugMode": true,
+        "configuration": {
+          "clientAttributeNames": [],
+          "sharedAttributeNames": [],
+          "serverAttributeNames": [],
+          "latestTsKeyNames": [
+            "is_parked"
+          ],
+          "tellFailureIfAbsent": true,
+          "getLatestValueWithTs": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 743,
+          "layoutY": 487
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbTransformMsgNode",
+        "name": "Generate Environment data",
+        "debugMode": true,
+        "configuration": {
+          "jsScript": "var tempDiff = Math.random() * 03;\nvar humidityDiff = Math.random() * 0.5;\nvar tempDirection = (Math.random() >= 0.5);\nvar humidityDirection = (Math.random() >= 0.5);\n\nvar newTemp = (metadata.temp * 1) + ((tempDirection) ? tempDiff : -tempDiff);\nif(newTemp > 45) { newTemp = 45; }\nif(newTemp < -10) { newTemp = -10; }\n\nvar newHumidity = (metadata.humidity * 1) + ((humidityDirection) ? humidityDiff : -humidityDiff);\nif(newHumidity > 100) { newHumidity = 100; }\nif(newHumidity < 0) { newHumidity = 0; }\n\nmsg.temp = newTemp;\nmsg.humidity = newHumidity;\n\nreturn {msg: msg, metadata: metadata, msgType: msgType};"
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 424,
+          "layoutY": 488
+        },
+        "type": "org.thingsboard.rule.engine.metadata.TbGetAttributesNode",
+        "name": "Add previous values",
+        "debugMode": true,
+        "configuration": {
+          "clientAttributeNames": [],
+          "sharedAttributeNames": [],
+          "serverAttributeNames": [],
+          "latestTsKeyNames": [
+            "temp",
+            "humidity"
+          ],
+          "tellFailureIfAbsent": true,
+          "getLatestValueWithTs": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 815,
+          "layoutY": 768
+        },
+        "type": "org.thingsboard.rule.engine.telemetry.TbMsgTimeseriesNode",
+        "name": "save total parked",
+        "debugMode": false,
+        "configuration": {
+          "defaultTTL": 0
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 577,
+          "layoutY": 622
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbTransformMsgNode",
+        "name": "Add starting values",
+        "debugMode": true,
+        "configuration": {
+          "jsScript": "metadata.temp = 20;\nmetadata.humidity = 40;\n\nreturn {msg: msg, metadata: metadata, msgType: msgType};"
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 742,
+          "layoutY": 903
+        },
+        "type": "org.thingsboard.rule.engine.telemetry.TbMsgTimeseriesNode",
+        "name": "save",
+        "debugMode": true,
+        "configuration": {
+          "defaultTTL": 0
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 57,
+          "layoutY": 907
+        },
+        "type": "org.thingsboard.rule.engine.analytics.latest.telemetry.TbAggLatestTelemetryNode",
+        "name": "aggregate environment estate",
+        "debugMode": true,
+        "configuration": {
+          "parentEntitiesQuery": {
+            "type": "relationsQuery",
+            "rootEntityId": {
+              "entityType": "ASSET",
+              "id": "e82d74c0-6cf2-11ea-baf2-6ff88ec57aeb"
+            },
+            "relationsQuery": {
+              "direction": "FROM",
+              "maxLevel": 5,
+              "filters": [
+                {
+                  "relationType": "Contains",
+                  "entityTypes": [
+                    "ASSET"
+                  ]
+                }
+              ]
+            },
+            "childRelationsQuery": {
+              "direction": "FROM",
+              "maxLevel": 6,
+              "filters": [
+                {
+                  "relationType": "Contains",
+                  "entityTypes": [
+                    "DEVICE"
+                  ]
+                }
+              ]
+            }
+          },
+          "periodTimeUnit": "MINUTES",
+          "periodValue": 1,
+          "aggMappings": [
+            {
+              "source": "temp",
+              "sourceScope": "LATEST_TELEMETRY",
+              "defaultValue": 0,
+              "target": "average_temp",
+              "aggFunction": "AVG",
+              "filter": null
+            },
+            {
+              "source": "humidity",
+              "sourceScope": "LATEST_TELEMETRY",
+              "defaultValue": 0,
+              "target": "average_humidity",
+              "aggFunction": "AVG"
+            },
+            {
+              "source": "temp",
+              "sourceScope": "LATEST_TELEMETRY",
+              "defaultValue": 0,
+              "target": "min_temp",
+              "aggFunction": "MIN"
+            },
+            {
+              "source": "temp",
+              "sourceScope": "LATEST_TELEMETRY",
+              "defaultValue": 0,
+              "target": "max_temp",
+              "aggFunction": "MAX"
+            },
+            {
+              "source": "humidity",
+              "sourceScope": "LATEST_TELEMETRY",
+              "defaultValue": 0,
+              "target": "min_humidity",
+              "aggFunction": "MIN"
+            },
+            {
+              "source": "humidity",
+              "sourceScope": "LATEST_TELEMETRY",
+              "defaultValue": 0,
+              "target": "max_humidity",
+              "aggFunction": "MAX"
+            },
+            {
+              "source": "temp_status",
+              "sourceScope": "LATEST_TELEMETRY",
+              "defaultValue": 0,
+              "target": "temp_warning_count",
+              "aggFunction": "COUNT",
+              "filter": {
+                "clientAttributeNames": [],
+                "sharedAttributeNames": [],
+                "serverAttributeNames": [],
+                "latestTsKeyNames": [
+                  "temp_status"
+                ],
+                "filterFunction": "return (attributes.temp_status === \"warning\");"
+              }
+            },
+            {
+              "source": "",
+              "sourceScope": "LATEST_TELEMETRY",
+              "defaultValue": 0,
+              "target": "temp_critical_count",
+              "aggFunction": "COUNT",
+              "filter": {
+                "clientAttributeNames": [],
+                "sharedAttributeNames": [],
+                "serverAttributeNames": [],
+                "latestTsKeyNames": [
+                  "temp_status"
+                ],
+                "filterFunction": "return (attributes.temp_status === 'critical');"
+              }
+            },
+            {
+              "source": "",
+              "sourceScope": "LATEST_TELEMETRY",
+              "defaultValue": 0,
+              "target": "humidity_warning_count",
+              "aggFunction": "COUNT",
+              "filter": {
+                "clientAttributeNames": [],
+                "sharedAttributeNames": [],
+                "serverAttributeNames": [],
+                "latestTsKeyNames": [],
+                "filterFunction": "return (attributes.humidity_status === 'warning');"
+              }
+            },
+            {
+              "source": "",
+              "sourceScope": "LATEST_TELEMETRY",
+              "defaultValue": 0,
+              "target": "humidity_critical_count",
+              "aggFunction": "COUNT",
+              "filter": {
+                "clientAttributeNames": [],
+                "sharedAttributeNames": [],
+                "serverAttributeNames": [],
+                "latestTsKeyNames": [
+                  "humidity_status"
+                ],
+                "filterFunction": "return (attributes.humidity_status === 'critical');"
+              }
+            },
+            {
+              "source": "",
+              "sourceScope": "LATEST_TELEMETRY",
+              "defaultValue": 0,
+              "target": "total_warnings",
+              "aggFunction": "COUNT",
+              "filter": {
+                "clientAttributeNames": [],
+                "sharedAttributeNames": [],
+                "serverAttributeNames": [],
+                "latestTsKeyNames": [
+                  "humidity_status",
+                  "temp_status"
+                ],
+                "filterFunction": "return (attributes.humidity_status === 'warning' || attributes.temp_status === 'warning');"
+              }
+            },
+            {
+              "source": "",
+              "sourceScope": "LATEST_TELEMETRY",
+              "defaultValue": 0,
+              "target": "total_criticals",
+              "aggFunction": "COUNT",
+              "filter": {
+                "clientAttributeNames": [],
+                "sharedAttributeNames": [],
+                "serverAttributeNames": [],
+                "latestTsKeyNames": [
+                  "humidity_status",
+                  "temp_status"
+                ],
+                "filterFunction": "return (attributes.humidity_status === 'critical' || attributes.temp_status === 'critical');"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 219,
+          "layoutY": 683
+        },
+        "type": "org.thingsboard.rule.engine.metadata.TbGetAttributesNode",
+        "name": "get metrics for percentage occupied",
+        "debugMode": true,
+        "configuration": {
+          "clientAttributeNames": [],
+          "sharedAttributeNames": [],
+          "serverAttributeNames": [],
+          "latestTsKeyNames": [
+            "total_parked",
+            "total_bays"
+          ],
+          "tellFailureIfAbsent": true,
+          "getLatestValueWithTs": false
+        }
+      }
+    ],
+    "connections": [
+      {
+        "fromIndex": 0,
+        "toIndex": 10,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 1,
+        "toIndex": 14,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 2,
+        "toIndex": 6,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 4,
+        "toIndex": 9,
+        "type": "DemoEnvironmentSensor"
+      },
+      {
+        "fromIndex": 4,
+        "toIndex": 7,
+        "type": "DemoParkingSensor"
+      },
+      {
+        "fromIndex": 5,
+        "toIndex": 2,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 6,
+        "toIndex": 4,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 7,
+        "toIndex": 3,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 9,
+        "toIndex": 11,
+        "type": "Failure"
+      },
+      {
+        "fromIndex": 9,
+        "toIndex": 8,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 11,
+        "toIndex": 8,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 13,
+        "toIndex": 12,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 14,
+        "toIndex": 0,
+        "type": "Success"
+      }
+    ],
+    "ruleChainConnections": [
+      {
+        "fromIndex": 3,
+        "targetRuleChainId": {
+          "entityType": "RULE_CHAIN",
+          "id": "a07b86e0-653a-11ea-baf2-6ff88ec57aeb"
+        },
+        "additionalInfo": {
+          "layoutX": 1049,
+          "layoutY": 411,
+          "ruleChainNodeId": "rule-chain-node-17"
+        },
+        "type": "Success"
+      },
+      {
+        "fromIndex": 8,
+        "targetRuleChainId": {
+          "entityType": "RULE_CHAIN",
+          "id": "a07b86e0-653a-11ea-baf2-6ff88ec57aeb"
+        },
+        "additionalInfo": {
+          "layoutX": 1049,
+          "layoutY": 411,
+          "ruleChainNodeId": "rule-chain-node-17"
+        },
+        "type": "Success"
+      }
+    ]
+  }
+}
