@@ -1,0 +1,276 @@
+{
+  "ruleChain": {
+    "additionalInfo": null,
+    "name": "NOT USED set status groups",
+    "firstRuleNodeId": null,
+    "root": false,
+    "debugMode": true,
+    "configuration": null
+  },
+  "metadata": {
+    "firstNodeIndex": 0,
+    "nodes": [
+      {
+        "additionalInfo": {
+          "layoutX": 178,
+          "layoutY": 280
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbTransformMsgNode",
+        "name": "Add status to meta",
+        "debugMode": true,
+        "configuration": {
+          "jsScript": "metadata['statusValue'] = msg[metadata['groupKey']];\nmetadata['statusValueFormatted'] = metadata['statusValue'].toUpperCase();\nmetadata['groupKeyFormatted'] = metadata['groupKey'].replace('_', ' ');\n\nreturn {msg: msg, metadata: metadata, msgType: msgType};"
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 31,
+          "layoutY": 595
+        },
+        "type": "org.thingsboard.rule.engine.action.TbCreateAlarmNode",
+        "name": "Send alarm",
+        "debugMode": true,
+        "configuration": {
+          "alarmType": "General Alarm",
+          "alarmDetailsBuildJs": "var details = {};\nif (metadata.prevAlarmDetails) {\n    details = JSON.parse(metadata.prevAlarmDetails);\n}\nreturn details;",
+          "severity": "CRITICAL",
+          "propagate": false,
+          "useMessageAlarmData": false,
+          "relationTypes": []
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 686,
+          "layoutY": 584
+        },
+        "type": "org.thingsboard.rule.engine.mail.TbMsgToEmailNode",
+        "name": "send alarm",
+        "debugMode": true,
+        "configuration": {
+          "fromTemplate": "noreply@endtoendiot.co.uk",
+          "toTemplate": "endtoendthingsboardtest@mailinator.com",
+          "ccTemplate": null,
+          "bccTemplate": null,
+          "subjectTemplate": "[${statusValueFormatted}] ${originatorName} ${groupKeyFormatted}",
+          "bodyTemplate": "Device ${originatorName} ${groupKeyFormatted} is now ${statusValueFormatted}"
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 1009,
+          "layoutY": 581
+        },
+        "type": "org.thingsboard.rule.engine.mail.TbSendEmailNode",
+        "name": "send email",
+        "debugMode": true,
+        "configuration": {
+          "useSystemSmtpSettings": true,
+          "smtpHost": "localhost",
+          "smtpPort": 25,
+          "username": null,
+          "password": null,
+          "smtpProtocol": "smtp",
+          "timeout": 10000,
+          "enableTls": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 310,
+          "layoutY": 143
+        },
+        "type": "org.thingsboard.rule.engine.filter.TbJsSwitchNode",
+        "name": "which status?",
+        "debugMode": true,
+        "configuration": {
+          "jsScript": "return msg[metadata['groupKey']];"
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 628,
+          "layoutY": 139
+        },
+        "type": "org.thingsboard.rule.engine.action.TbAddToGroupNode",
+        "name": "Add to warning",
+        "debugMode": true,
+        "configuration": {
+          "groupNamePattern": "${groupRootName}_warning",
+          "groupCacheExpiration": 300,
+          "createGroupIfNotExists": true,
+          "removeFromCurrentGroups": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 951,
+          "layoutY": 140
+        },
+        "type": "org.thingsboard.rule.engine.action.TbRemoveFromGroupNode",
+        "name": "remove from critical",
+        "debugMode": true,
+        "configuration": {
+          "groupNamePattern": "${groupRootName}_critical",
+          "groupCacheExpiration": 300
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 637,
+          "layoutY": 237
+        },
+        "type": "org.thingsboard.rule.engine.action.TbAddToGroupNode",
+        "name": "Add to critical",
+        "debugMode": true,
+        "configuration": {
+          "groupNamePattern": "${groupRootName}_critical",
+          "groupCacheExpiration": 300,
+          "createGroupIfNotExists": true,
+          "removeFromCurrentGroups": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 955,
+          "layoutY": 239
+        },
+        "type": "org.thingsboard.rule.engine.action.TbRemoveFromGroupNode",
+        "name": "remove from warning",
+        "debugMode": true,
+        "configuration": {
+          "groupNamePattern": "${groupRootName}_warning",
+          "groupCacheExpiration": 300
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 1252,
+          "layoutY": 250
+        },
+        "type": "org.thingsboard.rule.engine.action.TbClearAlarmNode",
+        "name": "clear alarm",
+        "debugMode": false,
+        "configuration": {
+          "alarmType": "General Alarm",
+          "alarmDetailsBuildJs": "var details = {};\nif (metadata.prevAlarmDetails) {\n    details = JSON.parse(metadata.prevAlarmDetails);\n}\nreturn details;"
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 952,
+          "layoutY": 53
+        },
+        "type": "org.thingsboard.rule.engine.action.TbRemoveFromGroupNode",
+        "name": "remove from warning",
+        "debugMode": true,
+        "configuration": {
+          "groupNamePattern": "${groupRootName}_warning",
+          "groupCacheExpiration": 300
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 632,
+          "layoutY": 52
+        },
+        "type": "org.thingsboard.rule.engine.action.TbRemoveFromGroupNode",
+        "name": "remove from critical",
+        "debugMode": true,
+        "configuration": {
+          "groupNamePattern": "${groupRootName}_critical",
+          "groupCacheExpiration": 300
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 372,
+          "layoutY": 586
+        },
+        "type": "org.thingsboard.rule.engine.metadata.TbGetOriginatorFieldsNode",
+        "name": "fetch email properties",
+        "debugMode": true,
+        "configuration": {
+          "fieldsMapping": {
+            "name": "originatorName",
+            "type": "originatorType",
+            "label": "originatorLabel"
+          }
+        }
+      }
+    ],
+    "connections": [
+      {
+        "fromIndex": 0,
+        "toIndex": 4,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 1,
+        "toIndex": 12,
+        "type": "Created"
+      },
+      {
+        "fromIndex": 2,
+        "toIndex": 3,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 4,
+        "toIndex": 11,
+        "type": "ok"
+      },
+      {
+        "fromIndex": 4,
+        "toIndex": 5,
+        "type": "warning"
+      },
+      {
+        "fromIndex": 4,
+        "toIndex": 7,
+        "type": "critical"
+      },
+      {
+        "fromIndex": 5,
+        "toIndex": 6,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 6,
+        "toIndex": 1,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 7,
+        "toIndex": 8,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 8,
+        "toIndex": 1,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 9,
+        "toIndex": 12,
+        "type": "Cleared"
+      },
+      {
+        "fromIndex": 10,
+        "toIndex": 9,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 11,
+        "toIndex": 10,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 12,
+        "toIndex": 2,
+        "type": "Success"
+      }
+    ],
+    "ruleChainConnections": null
+  }
+}

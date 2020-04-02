@@ -1,0 +1,292 @@
+{
+  "ruleChain": {
+    "additionalInfo": null,
+    "name": "Aggregate Bin Data",
+    "firstRuleNodeId": null,
+    "root": false,
+    "debugMode": false,
+    "configuration": null
+  },
+  "metadata": {
+    "firstNodeIndex": null,
+    "nodes": [
+      {
+        "additionalInfo": {
+          "layoutX": 51,
+          "layoutY": 250
+        },
+        "type": "org.thingsboard.rule.engine.analytics.latest.telemetry.TbAggLatestTelemetryNode",
+        "name": "Bournemouth spread count",
+        "debugMode": false,
+        "configuration": {
+          "parentEntitiesQuery": {
+            "type": "group",
+            "entityGroupId": {
+              "entityType": "ENTITY_GROUP",
+              "id": "7778acc0-6849-11ea-baf2-6ff88ec57aeb"
+            }
+          },
+          "periodTimeUnit": "MINUTES",
+          "periodValue": 10,
+          "aggMappings": [
+            {
+              "source": "level",
+              "sourceScope": "LATEST_TELEMETRY",
+              "defaultValue": 0,
+              "target": "countLevelLow",
+              "aggFunction": "COUNT",
+              "filter": {
+                "clientAttributeNames": [],
+                "sharedAttributeNames": [],
+                "serverAttributeNames": [],
+                "latestTsKeyNames": [
+                  "level"
+                ],
+                "filterFunction": "return attributes.level >= 0 && attributes.level < 25;"
+              }
+            },
+            {
+              "source": "level",
+              "sourceScope": "LATEST_TELEMETRY",
+              "defaultValue": 0,
+              "target": "countLevelMedium",
+              "aggFunction": "COUNT",
+              "filter": {
+                "clientAttributeNames": [],
+                "sharedAttributeNames": [],
+                "serverAttributeNames": [],
+                "latestTsKeyNames": [
+                  "level"
+                ],
+                "filterFunction": "return attributes.level >= 25 && attributes.level < 50;"
+              }
+            },
+            {
+              "source": "level",
+              "sourceScope": "LATEST_TELEMETRY",
+              "defaultValue": 0,
+              "target": "countLevelHigh",
+              "aggFunction": "COUNT",
+              "filter": {
+                "clientAttributeNames": [],
+                "sharedAttributeNames": [],
+                "serverAttributeNames": [],
+                "latestTsKeyNames": [
+                  "level"
+                ],
+                "filterFunction": "return attributes.level >= 50 && attributes.level < 75;"
+              }
+            },
+            {
+              "source": "level",
+              "sourceScope": "LATEST_TELEMETRY",
+              "defaultValue": 0,
+              "target": "countLevelVeryHigh",
+              "aggFunction": "COUNT",
+              "filter": {
+                "clientAttributeNames": [],
+                "sharedAttributeNames": [],
+                "serverAttributeNames": [],
+                "latestTsKeyNames": [
+                  "level"
+                ],
+                "filterFunction": "return attributes.level >= 75;"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 428,
+          "layoutY": 252
+        },
+        "type": "org.thingsboard.rule.engine.telemetry.TbMsgTimeseriesNode",
+        "name": "save",
+        "debugMode": false,
+        "configuration": {
+          "defaultTTL": 0
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 50,
+          "layoutY": 326
+        },
+        "type": "org.thingsboard.rule.engine.analytics.latest.telemetry.TbAggLatestTelemetryNode",
+        "name": "Watford spread count",
+        "debugMode": false,
+        "configuration": {
+          "parentEntitiesQuery": {
+            "type": "group",
+            "entityGroupId": {
+              "entityType": "ENTITY_GROUP",
+              "id": "0c167a20-6d12-11ea-baf2-6ff88ec57aeb"
+            }
+          },
+          "periodTimeUnit": "MINUTES",
+          "periodValue": 1,
+          "aggMappings": [
+            {
+              "source": "level",
+              "sourceScope": "LATEST_TELEMETRY",
+              "defaultValue": 0,
+              "target": "countLevelLow",
+              "aggFunction": "COUNT",
+              "filter": {
+                "clientAttributeNames": [],
+                "sharedAttributeNames": [],
+                "serverAttributeNames": [],
+                "latestTsKeyNames": [
+                  "level"
+                ],
+                "filterFunction": "return attributes.level >= 0 && attributes.level < 25;"
+              }
+            },
+            {
+              "source": "level",
+              "sourceScope": "LATEST_TELEMETRY",
+              "defaultValue": 0,
+              "target": "countLevelMedium",
+              "aggFunction": "COUNT",
+              "filter": {
+                "clientAttributeNames": [],
+                "sharedAttributeNames": [],
+                "serverAttributeNames": [],
+                "latestTsKeyNames": [
+                  "level"
+                ],
+                "filterFunction": "return attributes.level >= 25 && attributes.level < 50;"
+              }
+            },
+            {
+              "source": "level",
+              "sourceScope": "LATEST_TELEMETRY",
+              "defaultValue": 0,
+              "target": "countLevelHigh",
+              "aggFunction": "COUNT",
+              "filter": {
+                "clientAttributeNames": [],
+                "sharedAttributeNames": [],
+                "serverAttributeNames": [],
+                "latestTsKeyNames": [
+                  "level"
+                ],
+                "filterFunction": "return attributes.level >= 50 && attributes.level < 75;"
+              }
+            },
+            {
+              "source": "level",
+              "sourceScope": "LATEST_TELEMETRY",
+              "defaultValue": 0,
+              "target": "countLevelVeryHigh",
+              "aggFunction": "COUNT",
+              "filter": {
+                "clientAttributeNames": [],
+                "sharedAttributeNames": [],
+                "serverAttributeNames": [],
+                "latestTsKeyNames": [
+                  "level"
+                ],
+                "filterFunction": "return attributes.level >= 75;"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 427,
+          "layoutY": 328
+        },
+        "type": "org.thingsboard.rule.engine.telemetry.TbMsgTimeseriesNode",
+        "name": "save",
+        "debugMode": false,
+        "configuration": {
+          "defaultTTL": 0
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 427,
+          "layoutY": 465
+        },
+        "type": "org.thingsboard.rule.engine.telemetry.TbMsgTimeseriesNode",
+        "name": "save",
+        "debugMode": false,
+        "configuration": {
+          "defaultTTL": 0
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 32,
+          "layoutY": 452
+        },
+        "type": "org.thingsboard.rule.engine.analytics.latest.telemetry.TbAggLatestTelemetryNode",
+        "name": "Bin Aggregator",
+        "debugMode": true,
+        "configuration": {
+          "parentEntitiesQuery": {
+            "type": "relationsQuery",
+            "rootEntityId": {
+              "entityType": "ASSET",
+              "id": "1f980340-732d-11ea-baf2-6ff88ec57aeb"
+            },
+            "relationsQuery": {
+              "direction": "FROM",
+              "maxLevel": 5,
+              "filters": [
+                {
+                  "relationType": "Contains",
+                  "entityTypes": []
+                }
+              ]
+            },
+            "childRelationsQuery": {
+              "direction": "FROM",
+              "maxLevel": 5,
+              "filters": [
+                {
+                  "relationType": "Contains",
+                  "entityTypes": [
+                    "DEVICE"
+                  ]
+                }
+              ]
+            }
+          },
+          "periodTimeUnit": "MINUTES",
+          "periodValue": 1,
+          "aggMappings": [
+            {
+              "source": "name",
+              "sourceScope": "LATEST_TELEMETRY",
+              "defaultValue": 0,
+              "target": "bin_count",
+              "aggFunction": "COUNT"
+            }
+          ]
+        }
+      }
+    ],
+    "connections": [
+      {
+        "fromIndex": 0,
+        "toIndex": 1,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 2,
+        "toIndex": 3,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 5,
+        "toIndex": 4,
+        "type": "Success"
+      }
+    ],
+    "ruleChainConnections": null
+  }
+}

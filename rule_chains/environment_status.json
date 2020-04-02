@@ -1,0 +1,241 @@
+{
+  "ruleChain": {
+    "additionalInfo": null,
+    "name": "Environment Status",
+    "firstRuleNodeId": null,
+    "root": false,
+    "debugMode": true,
+    "configuration": null
+  },
+  "metadata": {
+    "firstNodeIndex": 1,
+    "nodes": [
+      {
+        "additionalInfo": {
+          "layoutX": 1293,
+          "layoutY": 331
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbTransformMsgNode",
+        "name": "prepare for groups",
+        "debugMode": true,
+        "configuration": {
+          "jsScript": "metadata['groupRootName'] = 'humidity';\nmetadata['groupKey'] = 'humidity_status';\n\nreturn {msg: msg, metadata: metadata, msgType: msgType};"
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 337,
+          "layoutY": 152
+        },
+        "type": "org.thingsboard.rule.engine.filter.TbJsFilterNode",
+        "name": "Is Environment Sensor?",
+        "debugMode": true,
+        "configuration": {
+          "jsScript": "return (metadata.deviceType === \"Environment\" || metadata.originatorType === \"DemoEnvironmentSensor\")"
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 1050,
+          "layoutY": 105
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbTransformMsgNode",
+        "name": "Calculate Temp Status",
+        "debugMode": true,
+        "configuration": {
+          "jsScript": "var message = msg;\n\nif(msg.temp > metadata.shared_temp_critical) {\n    message.temp_status = \"critical\";\n} else if(msg.temp > metadata.shared_temp_warning) {\n    message.temp_status = \"warning\";\n} else {\n    message.temp_status = \"ok\";\n}\n\nreturn {msg: message, metadata: metadata, msgType: msgType};"
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 1332,
+          "layoutY": 186
+        },
+        "type": "org.thingsboard.rule.engine.telemetry.TbMsgTimeseriesNode",
+        "name": "save?",
+        "debugMode": true,
+        "configuration": {
+          "defaultTTL": 0
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 533,
+          "layoutY": 66
+        },
+        "type": "org.thingsboard.rule.engine.metadata.TbGetAttributesNode",
+        "name": "Fetch Temperature Thresholds",
+        "debugMode": true,
+        "configuration": {
+          "clientAttributeNames": [],
+          "sharedAttributeNames": [
+            "temp_warning",
+            "temp_critical"
+          ],
+          "serverAttributeNames": [],
+          "latestTsKeyNames": [],
+          "tellFailureIfAbsent": true,
+          "getLatestValueWithTs": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 1035,
+          "layoutY": 235
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbTransformMsgNode",
+        "name": "Calculate Humidity Status",
+        "debugMode": true,
+        "configuration": {
+          "jsScript": "var message = msg;\n\nif(msg.humidity > metadata.shared_humidity_critical) {\n    message.humidity_status = \"critical\";\n} else if(msg.humidity > metadata.shared_humidity_warning) {\n    message.humidity_status = \"warning\";\n} else {\n    message.humidity_status = \"ok\";\n}\n\nreturn {msg: message, metadata: metadata, msgType: msgType};"
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 507,
+          "layoutY": 258
+        },
+        "type": "org.thingsboard.rule.engine.metadata.TbGetAttributesNode",
+        "name": "Fetch HumidityThresholds",
+        "debugMode": true,
+        "configuration": {
+          "clientAttributeNames": [],
+          "sharedAttributeNames": [
+            "humidity_warning",
+            "humidity_critical"
+          ],
+          "serverAttributeNames": [],
+          "latestTsKeyNames": [],
+          "tellFailureIfAbsent": true,
+          "getLatestValueWithTs": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 1298,
+          "layoutY": 53
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbTransformMsgNode",
+        "name": "prepare for groups",
+        "debugMode": true,
+        "configuration": {
+          "jsScript": "metadata['groupRootName'] = 'temperature';\nmetadata['groupKey'] = 'temp_status';\n\nreturn {msg: msg, metadata: metadata, msgType: msgType};"
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 786,
+          "layoutY": 265
+        },
+        "type": "org.thingsboard.rule.engine.filter.TbCheckMessageNode",
+        "name": "check humidity threshholds",
+        "debugMode": false,
+        "configuration": {
+          "messageNames": [],
+          "metadataNames": [
+            "shared_humidity_warning",
+            "shared_humidity_critical"
+          ],
+          "checkAllKeys": true
+        }
+      },
+      {
+        "additionalInfo": {
+          "layoutX": 793,
+          "layoutY": 66
+        },
+        "type": "org.thingsboard.rule.engine.filter.TbCheckMessageNode",
+        "name": "check temp threshholds",
+        "debugMode": false,
+        "configuration": {
+          "messageNames": [],
+          "metadataNames": [
+            "shared_temp_warning",
+            "shared_temp_critical"
+          ],
+          "checkAllKeys": true
+        }
+      }
+    ],
+    "connections": [
+      {
+        "fromIndex": 1,
+        "toIndex": 6,
+        "type": "True"
+      },
+      {
+        "fromIndex": 1,
+        "toIndex": 4,
+        "type": "True"
+      },
+      {
+        "fromIndex": 2,
+        "toIndex": 7,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 2,
+        "toIndex": 3,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 4,
+        "toIndex": 9,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 5,
+        "toIndex": 3,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 5,
+        "toIndex": 0,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 6,
+        "toIndex": 8,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 8,
+        "toIndex": 5,
+        "type": "True"
+      },
+      {
+        "fromIndex": 9,
+        "toIndex": 2,
+        "type": "True"
+      }
+    ],
+    "ruleChainConnections": [
+      {
+        "fromIndex": 0,
+        "targetRuleChainId": {
+          "entityType": "RULE_CHAIN",
+          "id": "706c0540-6e83-11ea-baf2-6ff88ec57aeb"
+        },
+        "additionalInfo": {
+          "layoutX": 1583,
+          "layoutY": 173,
+          "ruleChainNodeId": "rule-chain-node-10"
+        },
+        "type": "Success"
+      },
+      {
+        "fromIndex": 7,
+        "targetRuleChainId": {
+          "entityType": "RULE_CHAIN",
+          "id": "706c0540-6e83-11ea-baf2-6ff88ec57aeb"
+        },
+        "additionalInfo": {
+          "layoutX": 1583,
+          "layoutY": 173,
+          "ruleChainNodeId": "rule-chain-node-10"
+        },
+        "type": "Success"
+      }
+    ]
+  }
+}
