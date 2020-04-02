@@ -1,0 +1,400 @@
+{
+  "title": "Legionella",
+  "configuration": {
+    "description": "Legionella",
+    "widgets": {
+      "3413cb3b-16c5-ca57-a0a3-6f25541f8309": {
+        "isSystemType": true,
+        "bundleAlias": "cards",
+        "typeAlias": "entities_table",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 24,
+        "sizeY": 8,
+        "config": {
+          "timewindow": {
+            "realtime": {
+              "interval": 1000,
+              "timewindowMs": 86400000
+            },
+            "aggregation": {
+              "type": "NONE",
+              "limit": 200
+            }
+          },
+          "showTitle": false,
+          "backgroundColor": "rgb(255, 255, 255)",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "4px",
+          "settings": {
+            "enableSearch": true,
+            "displayPagination": true,
+            "defaultPageSize": 10,
+            "defaultSortOrder": "entityName",
+            "displayEntityName": false,
+            "displayEntityType": false,
+            "enableSelectColumnDisplay": true
+          },
+          "title": "New Entities table",
+          "dropShadow": true,
+          "enableFullscreen": true,
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400,
+            "padding": "5px 10px 5px 10px"
+          },
+          "useDashboardTimewindow": false,
+          "showLegend": false,
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "serial_number",
+                  "type": "attribute",
+                  "label": "Serial",
+                  "color": "#2196f3",
+                  "settings": {
+                    "columnWidth": "0px",
+                    "useCellStyleFunction": false,
+                    "useCellContentFunction": false
+                  },
+                  "_hash": 0.42518413004141176
+                },
+                {
+                  "name": "label",
+                  "type": "entityField",
+                  "label": "Device",
+                  "color": "#4caf50",
+                  "settings": {
+                    "columnWidth": "0px",
+                    "useCellStyleFunction": false,
+                    "useCellContentFunction": false
+                  },
+                  "_hash": 0.3433986101508799
+                },
+                {
+                  "name": "name",
+                  "type": "entityField",
+                  "label": "Name",
+                  "color": "#f44336",
+                  "settings": {
+                    "columnWidth": "0px",
+                    "useCellStyleFunction": false,
+                    "cellStyleFunction": "",
+                    "useCellContentFunction": false,
+                    "cellContentFunction": ""
+                  },
+                  "_hash": 0.9122757501392439
+                },
+                {
+                  "name": "room",
+                  "type": "attribute",
+                  "label": "Room",
+                  "color": "#ffc107",
+                  "settings": {
+                    "columnWidth": "0px",
+                    "useCellStyleFunction": false,
+                    "useCellContentFunction": false
+                  },
+                  "_hash": 0.40335748803920557
+                },
+                {
+                  "name": "temp",
+                  "type": "timeseries",
+                  "label": "Pipe",
+                  "color": "#607d8b",
+                  "settings": {
+                    "columnWidth": "0px",
+                    "useCellStyleFunction": false,
+                    "useCellContentFunction": false
+                  },
+                  "_hash": 0.650048808752573,
+                  "units": "°C",
+                  "decimals": 2
+                },
+                {
+                  "name": "pipe_delta_acc_delta",
+                  "type": "timeseries",
+                  "label": "Events",
+                  "color": "#9c27b0",
+                  "settings": {
+                    "columnWidth": "0px",
+                    "useCellStyleFunction": false,
+                    "useCellContentFunction": false
+                  },
+                  "_hash": 0.39742923037156896
+                },
+                {
+                  "name": "scold",
+                  "type": "timeseries",
+                  "label": "Scold",
+                  "color": "#ffeb3b",
+                  "settings": {
+                    "columnWidth": "0px",
+                    "useCellStyleFunction": false,
+                    "useCellContentFunction": true,
+                    "cellContentFunction": "switch (value) {\n    case 'critical':\n        return '🔴';\n    case 'warning':\n        return '🟠';\n    case 'ok':\n        return '🟢';\n    default:\n        return '🔵';\n}"
+                  },
+                  "_hash": 0.7506057023893251
+                },
+                {
+                  "name": "legionella",
+                  "type": "timeseries",
+                  "label": "Legionella",
+                  "color": "#03a9f4",
+                  "settings": {
+                    "columnWidth": "0px",
+                    "useCellStyleFunction": false,
+                    "useCellContentFunction": true,
+                    "cellContentFunction": "switch (value) {\n    case 'critical':\n        return '🔴';\n    case 'warning':\n        return '🟠';\n    case 'ok':\n        return '🟢';\n    default:\n        return '🔵';\n}"
+                  },
+                  "_hash": 0.7495785337664853
+                },
+                {
+                  "name": "battery_level",
+                  "type": "timeseries",
+                  "label": "Battery",
+                  "color": "#8bc34a",
+                  "settings": {
+                    "columnWidth": "0px",
+                    "useCellStyleFunction": false,
+                    "useCellContentFunction": false
+                  },
+                  "_hash": 0.021273888515015327,
+                  "units": "%"
+                },
+                {
+                  "name": "sp_rssi",
+                  "type": "timeseries",
+                  "label": "RSSI",
+                  "color": "#3f51b5",
+                  "settings": {
+                    "columnWidth": "0px",
+                    "useCellStyleFunction": false,
+                    "useCellContentFunction": false
+                  },
+                  "_hash": 0.9690128738839511,
+                  "units": "dBm"
+                },
+                {
+                  "name": "lastActivityTime",
+                  "type": "attribute",
+                  "label": "Received at",
+                  "color": "#e91e63",
+                  "settings": {
+                    "columnWidth": "0px",
+                    "useCellStyleFunction": false,
+                    "useCellContentFunction": true,
+                    "cellContentFunction": "var date = new Date(value);\nvar the_date = `0${date.getDate()}`.slice(-2);\nvar the_month = `0${date.getMonth() + 1}`.slice(-2);\nvar the_hour = `0${date.getHours()}`.slice(-2);\nvar the_min = `0${date.getMinutes()}`.slice(-2);\nvar the_sec = `0${date.getSeconds()}`.slice(-2);\n\nreturn `${the_date}/${the_month}/${date.getFullYear()} ${the_hour}:${the_min}:${the_sec}`;"
+                  },
+                  "_hash": 0.15776122268016268
+                }
+              ],
+              "entityAliasId": "159ac145-3455-ce1f-0232-9b3d2fdbbabd"
+            }
+          ],
+          "showTitleIcon": false,
+          "titleIcon": null,
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "widgetStyle": {},
+          "displayTimewindow": true,
+          "actions": {},
+          "enableDataExport": true
+        },
+        "id": "3413cb3b-16c5-ca57-a0a3-6f25541f8309"
+      },
+      "8fd04c0a-93ca-730e-4760-7890bff16447": {
+        "isSystemType": true,
+        "bundleAlias": "charts",
+        "typeAlias": "basic_timeseries",
+        "type": "timeseries",
+        "title": "New widget",
+        "sizeX": 24,
+        "sizeY": 10,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "temp",
+                  "type": "timeseries",
+                  "label": "${entityLabel}",
+                  "color": "#2196f3",
+                  "settings": {
+                    "excludeFromStacking": false,
+                    "hideDataByDefault": false,
+                    "disableDataHiding": false,
+                    "removeFromLegend": false,
+                    "showLines": true,
+                    "fillLines": false,
+                    "showPoints": false,
+                    "showPointShape": "circle",
+                    "pointShapeFormatter": "var size = radius * Math.sqrt(Math.PI) / 2;\nctx.moveTo(x - size, y - size);\nctx.lineTo(x + size, y + size);\nctx.moveTo(x - size, y + size);\nctx.lineTo(x + size, y - size);",
+                    "showPointsLineWidth": 5,
+                    "showPointsRadius": 3,
+                    "showSeparateAxis": false,
+                    "axisPosition": "left",
+                    "comparisonSettings": {
+                      "showValuesForComparison": true
+                    }
+                  },
+                  "_hash": 0.818886347657552
+                }
+              ],
+              "entityAliasId": "159ac145-3455-ce1f-0232-9b3d2fdbbabd"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "shadowSize": 4,
+            "fontColor": "#545454",
+            "fontSize": 10,
+            "xaxis": {
+              "showLabels": true,
+              "color": "#545454"
+            },
+            "yaxis": {
+              "showLabels": true,
+              "color": "#545454"
+            },
+            "grid": {
+              "color": "#545454",
+              "tickColor": "#DDDDDD",
+              "verticalLines": true,
+              "horizontalLines": true,
+              "outlineWidth": 1
+            },
+            "stack": false,
+            "tooltipIndividual": false,
+            "timeForComparison": "months",
+            "xaxisSecond": {
+              "axisPosition": "top",
+              "showLabels": true
+            }
+          },
+          "title": "Pipe temperature",
+          "dropShadow": true,
+          "enableFullscreen": true,
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "mobileHeight": null,
+          "showTitleIcon": false,
+          "titleIcon": null,
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "enableDataExport": true,
+          "widgetStyle": {},
+          "useDashboardTimewindow": true,
+          "displayTimewindow": true,
+          "showLegend": true,
+          "legendConfig": {
+            "direction": "column",
+            "position": "bottom",
+            "showMin": false,
+            "showMax": false,
+            "showAvg": false,
+            "showTotal": false
+          },
+          "actions": {}
+        },
+        "id": "8fd04c0a-93ca-730e-4760-7890bff16447"
+      }
+    },
+    "states": {
+      "default": {
+        "name": "Legionella",
+        "root": true,
+        "layouts": {
+          "main": {
+            "widgets": {
+              "3413cb3b-16c5-ca57-a0a3-6f25541f8309": {
+                "sizeX": 24,
+                "sizeY": 8,
+                "row": 10,
+                "col": 0
+              },
+              "8fd04c0a-93ca-730e-4760-7890bff16447": {
+                "sizeX": 24,
+                "sizeY": 10,
+                "mobileHeight": null,
+                "row": 0,
+                "col": 0
+              }
+            },
+            "gridSettings": {
+              "backgroundColor": "#eeeeee",
+              "color": "rgba(0,0,0,0.870588)",
+              "columns": 24,
+              "margins": [
+                10,
+                10
+              ],
+              "backgroundSizeMode": "100%"
+            }
+          }
+        }
+      }
+    },
+    "entityAliases": {
+      "159ac145-3455-ce1f-0232-9b3d2fdbbabd": {
+        "id": "159ac145-3455-ce1f-0232-9b3d2fdbbabd",
+        "alias": "Bishopbriggs Academy",
+        "filter": {
+          "type": "deviceSearchQuery",
+          "resolveMultiple": true,
+          "rootStateEntity": false,
+          "stateEntityParamName": null,
+          "defaultStateEntity": null,
+          "rootEntity": {
+            "entityType": "ASSET",
+            "id": "0793e610-7071-11ea-baf2-6ff88ec57aeb"
+          },
+          "direction": "FROM",
+          "maxLevel": 1,
+          "relationType": "Contains",
+          "deviceTypes": [
+            "Legionella"
+          ]
+        }
+      }
+    },
+    "timewindow": {
+      "realtime": {
+        "interval": 7200000,
+        "timewindowMs": 2592000000
+      },
+      "aggregation": {
+        "type": "AVG",
+        "limit": 25000
+      },
+      "hideInterval": false,
+      "hideAggregation": false,
+      "hideAggInterval": false
+    },
+    "settings": {
+      "stateControllerId": "entity",
+      "showTitle": false,
+      "showDashboardsSelect": true,
+      "showEntitiesSelect": true,
+      "showDashboardTimewindow": true,
+      "showDashboardExport": true,
+      "toolbarAlwaysOpen": true
+    }
+  },
+  "name": "Legionella"
+}

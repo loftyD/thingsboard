@@ -1,5 +1,5 @@
 {
-  "title": "Bournemouth Borough Council",
+  "title": "Bins",
   "configuration": {
     "widgets": {
       "d7daebb0-fbf9-4b03-dae5-2274bf87f685": {
@@ -60,18 +60,6 @@
                     "useCellContentFunction": false
                   },
                   "_hash": 0.09138160633088721
-                },
-                {
-                  "name": "location",
-                  "type": "attribute",
-                  "label": "Location",
-                  "color": "#607d8b",
-                  "settings": {
-                    "columnWidth": "0px",
-                    "useCellStyleFunction": false,
-                    "useCellContentFunction": false
-                  },
-                  "_hash": 0.5337041115623404
                 },
                 {
                   "name": "level",
@@ -146,8 +134,8 @@
         "typeAlias": "neon_gauge_justgage",
         "type": "latest",
         "title": "New widget",
-        "sizeX": 7,
-        "sizeY": 5,
+        "sizeX": 6,
+        "sizeY": 9,
         "config": {
           "datasources": [
             {
@@ -174,8 +162,8 @@
             }
           },
           "showTitle": false,
-          "backgroundColor": "#333333",
-          "color": "rgb(238, 238, 238)",
+          "backgroundColor": "rgba(1, 0, 0, 0.93)",
+          "color": "rgb(255, 254, 254)",
           "padding": "0px",
           "settings": {
             "maxValue": 100,
@@ -189,29 +177,25 @@
               "family": "Roboto",
               "size": 12,
               "style": "normal",
-              "weight": "500",
-              "color": "#333333"
+              "weight": "500"
             },
             "labelFont": {
               "family": "Roboto",
               "size": 8,
               "style": "normal",
-              "weight": "500",
-              "color": "#333333"
+              "weight": "500"
             },
             "valueFont": {
               "family": "Segment7Standard",
               "style": "normal",
               "weight": "500",
-              "size": 32,
-              "color": "#333333"
+              "size": 32
             },
             "minMaxFont": {
               "family": "Segment7Standard",
               "size": 12,
               "style": "normal",
-              "weight": "500",
-              "color": "#333333"
+              "weight": "500"
             },
             "neonGlowBrightness": 70,
             "dashThickness": 1,
@@ -223,12 +207,11 @@
             "roundedLineCap": false,
             "showUnitTitle": true,
             "unitTitle": "%",
-            "defaultColor": "#ffebee",
-            "gaugeColor": "#ffebee"
+            "gaugeColor": "#000000"
           },
           "title": "",
           "dropShadow": true,
-          "enableFullscreen": false,
+          "enableFullscreen": true,
           "titleStyle": {
             "fontSize": "16px",
             "fontWeight": 400
@@ -242,10 +225,156 @@
           "iconColor": "rgba(0, 0, 0, 0.87)",
           "iconSize": "24px",
           "titleTooltip": "",
-          "enableDataExport": false,
+          "enableDataExport": true,
           "displayTimewindow": true
         },
         "id": "80c3e5c7-7b5f-f281-a9c8-fab5e6dedf9f"
+      },
+      "e7efab4c-87aa-4063-6435-d19c820cd776": {
+        "isSystemType": true,
+        "bundleAlias": "charts",
+        "typeAlias": "basic_timeseries",
+        "type": "timeseries",
+        "title": "New widget",
+        "sizeX": 18,
+        "sizeY": 9,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "level",
+                  "type": "timeseries",
+                  "label": "Level",
+                  "color": "#2196f3",
+                  "settings": {
+                    "excludeFromStacking": false,
+                    "hideDataByDefault": false,
+                    "disableDataHiding": false,
+                    "removeFromLegend": false,
+                    "showLines": true,
+                    "fillLines": false,
+                    "showPoints": false,
+                    "showPointShape": "circle",
+                    "pointShapeFormatter": "var size = radius * Math.sqrt(Math.PI) / 2;\nctx.moveTo(x - size, y - size);\nctx.lineTo(x + size, y + size);\nctx.moveTo(x - size, y + size);\nctx.lineTo(x + size, y - size);",
+                    "showPointsLineWidth": 5,
+                    "showPointsRadius": 3,
+                    "showSeparateAxis": true,
+                    "axisPosition": "left",
+                    "comparisonSettings": {
+                      "showValuesForComparison": false
+                    },
+                    "axisTitle": "Level (%)"
+                  },
+                  "_hash": 0.8563722240032092,
+                  "units": "%"
+                },
+                {
+                  "name": "temp",
+                  "type": "timeseries",
+                  "label": "Temperature",
+                  "color": "#4caf50",
+                  "settings": {
+                    "excludeFromStacking": false,
+                    "hideDataByDefault": false,
+                    "disableDataHiding": false,
+                    "removeFromLegend": false,
+                    "showLines": true,
+                    "fillLines": false,
+                    "showPoints": false,
+                    "showPointShape": "circle",
+                    "pointShapeFormatter": "var size = radius * Math.sqrt(Math.PI) / 2;\nctx.moveTo(x - size, y - size);\nctx.lineTo(x + size, y + size);\nctx.moveTo(x - size, y + size);\nctx.lineTo(x + size, y - size);",
+                    "showPointsLineWidth": 5,
+                    "showPointsRadius": 3,
+                    "showSeparateAxis": true,
+                    "axisPosition": "right",
+                    "comparisonSettings": {
+                      "showValuesForComparison": true
+                    },
+                    "axisTitle": "Temperature (°C)"
+                  },
+                  "_hash": 0.5954528674965507,
+                  "units": "°C"
+                }
+              ],
+              "entityAliasId": "511f0210-9fa0-0699-5f2b-0ed3a8281540"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "interval": 300000,
+              "timewindowMs": 86400000
+            },
+            "aggregation": {
+              "type": "AVG",
+              "limit": 25000
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "shadowSize": 4,
+            "fontColor": "#545454",
+            "fontSize": 10,
+            "xaxis": {
+              "showLabels": true,
+              "color": "#545454",
+              "title": "Time"
+            },
+            "yaxis": {
+              "showLabels": true,
+              "color": "#545454"
+            },
+            "grid": {
+              "color": "#545454",
+              "tickColor": "#DDDDDD",
+              "verticalLines": true,
+              "horizontalLines": true,
+              "outlineWidth": 1
+            },
+            "stack": false,
+            "tooltipIndividual": false,
+            "timeForComparison": "weeks",
+            "xaxisSecond": {
+              "axisPosition": "top",
+              "showLabels": true
+            },
+            "smoothLines": false,
+            "comparisonEnabled": false,
+            "tooltipCumulative": false
+          },
+          "title": "Last 24 Hours",
+          "dropShadow": true,
+          "enableFullscreen": true,
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "mobileHeight": null,
+          "showTitleIcon": false,
+          "titleIcon": null,
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "enableDataExport": true,
+          "widgetStyle": {},
+          "useDashboardTimewindow": false,
+          "displayTimewindow": true,
+          "showLegend": true,
+          "actions": {},
+          "legendConfig": {
+            "direction": "column",
+            "position": "bottom",
+            "showMin": false,
+            "showMax": false,
+            "showAvg": false,
+            "showTotal": false
+          }
+        },
+        "id": "e7efab4c-87aa-4063-6435-d19c820cd776"
       },
       "5c91248a-fe36-9811-1ccf-b668fc0b6491": {
         "isSystemType": true,
@@ -376,30 +505,16 @@
               "type": "entity",
               "dataKeys": [
                 {
-                  "name": "name",
+                  "name": "label",
                   "type": "entityField",
-                  "label": "Name",
-                  "color": "#4caf50",
-                  "settings": {
-                    "columnWidth": "0px",
-                    "useCellStyleFunction": false,
-                    "cellStyleFunction": "",
-                    "useCellContentFunction": false,
-                    "cellContentFunction": ""
-                  },
-                  "_hash": 0.9897588431279605
-                },
-                {
-                  "name": "location",
-                  "type": "attribute",
-                  "label": "Location",
+                  "label": "Device",
                   "color": "#f44336",
                   "settings": {
                     "columnWidth": "0px",
                     "useCellStyleFunction": false,
                     "useCellContentFunction": false
                   },
-                  "_hash": 0.9356594915630978
+                  "_hash": 0.7350930365343794
                 },
                 {
                   "name": "level",
@@ -413,9 +528,22 @@
                   },
                   "_hash": 0.43153514678540783,
                   "units": "%"
+                },
+                {
+                  "name": "lastActivityTime",
+                  "type": "attribute",
+                  "label": "Received At",
+                  "color": "#f44336",
+                  "settings": {
+                    "columnWidth": "0px",
+                    "useCellStyleFunction": false,
+                    "useCellContentFunction": true,
+                    "cellContentFunction": "var date = new Date(value);\nvar the_date = `0${date.getDate()}`.slice(-2);\nvar the_month = `0${date.getMonth() + 1}`.slice(-2);\nvar the_hour = `0${date.getHours()}`.slice(-2);\nvar the_min = `0${date.getMinutes()}`.slice(-2);\nvar the_sec = `0${date.getSeconds()}`.slice(-2);\n\nreturn `${the_date}/${the_month}/${date.getFullYear()} ${the_hour}:${the_min}:${the_sec}`;"
+                  },
+                  "_hash": 0.22352386717509676
                 }
               ],
-              "entityAliasId": "7ffffd9e-02c5-fc7e-6774-122f4aad0b96"
+              "entityAliasId": "8f0311e1-ab62-03f6-5135-739438a03d66"
             }
           ],
           "showTitleIcon": false,
@@ -457,7 +585,7 @@
                 {
                   "name": "countLevelLow",
                   "type": "timeseries",
-                  "label": "0-25%",
+                  "label": "0-24%",
                   "color": "#3771d0",
                   "settings": {},
                   "_hash": 0.37627923086733905
@@ -465,7 +593,7 @@
                 {
                   "name": "countLevelMedium",
                   "type": "timeseries",
-                  "label": "26-50%",
+                  "label": "25-49%",
                   "color": "#53c475",
                   "settings": {},
                   "_hash": 0.7700880942695936,
@@ -474,7 +602,7 @@
                 {
                   "name": "countLevelHigh",
                   "type": "timeseries",
-                  "label": "51-75%",
+                  "label": "50-74%",
                   "color": "#ecb233",
                   "settings": {},
                   "_hash": 0.0372773022335795
@@ -482,7 +610,7 @@
                 {
                   "name": "countLevelVeryHigh",
                   "type": "timeseries",
-                  "label": "76-100%",
+                  "label": "75-100%",
                   "color": "#e64c4c",
                   "settings": {},
                   "_hash": 0.4190437383538923
@@ -553,27 +681,19 @@
                 },
                 {
                   "name": "level",
-                  "type": "attribute",
+                  "type": "timeseries",
                   "label": "level",
                   "color": "#f44336",
                   "settings": {},
-                  "_hash": 0.2043883586631916
-                },
-                {
-                  "name": "level",
-                  "type": "timeseries",
-                  "label": "level",
-                  "color": "#ffc107",
-                  "settings": {},
-                  "_hash": 0.43250525388268213
+                  "_hash": 0.26781170435171164
                 },
                 {
                   "name": "location",
                   "type": "attribute",
                   "label": "location",
-                  "color": "#607d8b",
+                  "color": "#ffc107",
                   "settings": {},
-                  "_hash": 0.4449082798722943
+                  "_hash": 0.6956443978659264
                 }
               ],
               "entityAliasId": "53221a12-4f9e-5938-f0c7-e72e05f15c99"
@@ -629,7 +749,7 @@
             "disableScrollZooming": true,
             "useTooltipFunction": true,
             "useClusterMarkers": true,
-            "tooltipFunction": "lbl = \"<b>${entityName}</b><br /><b>Location</b> \" + dsData[dsIndex].location + \"<br />\";\n\nif(dsData[dsIndex].level !== null)\n    lbl += \"<b>Level</b> \" + dsData[dsIndex].level + \"%\";\n    \n    return lbl;"
+            "tooltipFunction": "lbl = \"<b>${entityName}</b><br /><b>Location</b> \" +\n    dsData[dsIndex].location + \"<br />\";\n\nif (dsData[dsIndex].level !== null)\n    lbl += \"<b>Level</b> \" + dsData[dsIndex].level + \"%\";\n\nreturn lbl;"
           },
           "title": "",
           "dropShadow": true,
@@ -662,212 +782,11 @@
           "displayTimewindow": true
         },
         "id": "8479a3af-12a9-ca71-f498-de79f0f8ad72"
-      },
-      "2d2d45e5-869e-0b4b-bf68-ae0631fc0ee7": {
-        "isSystemType": false,
-        "bundleAlias": "better_widgets",
-        "typeAlias": "flot_hide_2nd_y_axis_",
-        "type": "timeseries",
-        "title": "New widget",
-        "sizeX": 17,
-        "sizeY": 9,
-        "config": {
-          "datasources": [
-            {
-              "type": "entity",
-              "dataKeys": [
-                {
-                  "name": "level",
-                  "type": "timeseries",
-                  "label": "Level",
-                  "color": "#2196f3",
-                  "settings": {
-                    "excludeFromStacking": false,
-                    "hideDataByDefault": false,
-                    "disableDataHiding": false,
-                    "removeFromLegend": false,
-                    "showLines": true,
-                    "fillLines": false,
-                    "showPoints": false,
-                    "showPointShape": "circle",
-                    "pointShapeFormatter": "var size = radius * Math.sqrt(Math.PI) / 2;\nctx.moveTo(x - size, y - size);\nctx.lineTo(x + size, y + size);\nctx.moveTo(x - size, y + size);\nctx.lineTo(x + size, y - size);",
-                    "showPointsLineWidth": 5,
-                    "showPointsRadius": 3,
-                    "showSeparateAxis": false,
-                    "axisPosition": "left",
-                    "comparisonSettings": {
-                      "showValuesForComparison": true
-                    }
-                  },
-                  "_hash": 0.9627739289296962,
-                  "units": "%"
-                },
-                {
-                  "name": "level_status",
-                  "type": "timeseries",
-                  "label": "Critical Threshold",
-                  "color": "rgb(255, 0, 0)",
-                  "settings": {
-                    "excludeFromStacking": false,
-                    "hideDataByDefault": false,
-                    "disableDataHiding": false,
-                    "removeFromLegend": false,
-                    "showLines": true,
-                    "fillLines": false,
-                    "showPoints": false,
-                    "showPointShape": "circle",
-                    "pointShapeFormatter": "var size = radius * Math.sqrt(Math.PI) / 2;\nctx.moveTo(x - size, y - size);\nctx.lineTo(x + size, y + size);\nctx.moveTo(x - size, y + size);\nctx.lineTo(x + size, y - size);",
-                    "showPointsLineWidth": 5,
-                    "showPointsRadius": 3,
-                    "showSeparateAxis": false,
-                    "axisPosition": "right",
-                    "comparisonSettings": {
-                      "showValuesForComparison": true
-                    }
-                  },
-                  "_hash": 0.8715406252709903,
-                  "units": "%",
-                  "postFuncBody": "return 70;"
-                }
-              ],
-              "entityAliasId": "511f0210-9fa0-0699-5f2b-0ed3a8281540"
-            }
-          ],
-          "timewindow": {
-            "hideInterval": false,
-            "hideAggregation": false,
-            "hideAggInterval": false,
-            "history": {
-              "fixedTimewindow": {
-                "startTimeMs": 1585250627665.6958,
-                "endTimeMs": 1585250952430.0286
-              },
-              "interval": 32476.43327636719
-            },
-            "aggregation": {
-              "type": "AVG",
-              "limit": 25000
-            }
-          },
-          "showTitle": true,
-          "backgroundColor": "#fff",
-          "color": "rgba(0, 0, 0, 0.87)",
-          "padding": "8px",
-          "settings": {
-            "shadowSize": 4,
-            "fontColor": "#545454",
-            "fontSize": 10,
-            "xaxis": {
-              "showLabels": true,
-              "color": "#545454"
-            },
-            "yaxis": {
-              "showLabels": true,
-              "color": "#545454",
-              "min": 0,
-              "max": 100
-            },
-            "grid": {
-              "color": "#545454",
-              "tickColor": "#DDDDDD",
-              "verticalLines": true,
-              "horizontalLines": true,
-              "outlineWidth": 1
-            },
-            "stack": false,
-            "tooltipIndividual": false,
-            "timeForComparison": "months",
-            "xaxisSecond": {
-              "axisPosition": "top",
-              "showLabels": true
-            }
-          },
-          "title": "Last 24 Hours",
-          "dropShadow": true,
-          "enableFullscreen": true,
-          "titleStyle": {
-            "fontSize": "16px",
-            "fontWeight": 400
-          },
-          "mobileHeight": null,
-          "showTitleIcon": false,
-          "titleIcon": null,
-          "iconColor": "rgba(0, 0, 0, 0.87)",
-          "iconSize": "24px",
-          "titleTooltip": "",
-          "enableDataExport": true,
-          "widgetStyle": {},
-          "useDashboardTimewindow": false,
-          "displayTimewindow": true,
-          "showLegend": false,
-          "actions": {}
-        },
-        "id": "2d2d45e5-869e-0b4b-bf68-ae0631fc0ee7"
-      },
-      "4719f8cf-000d-a268-a163-335f301d6abc": {
-        "isSystemType": true,
-        "bundleAlias": "cards",
-        "typeAlias": "simple_card",
-        "type": "latest",
-        "title": "New widget",
-        "sizeX": 7,
-        "sizeY": 4,
-        "config": {
-          "datasources": [
-            {
-              "type": "entity",
-              "dataKeys": [
-                {
-                  "name": "location",
-                  "type": "attribute",
-                  "label": "Location",
-                  "color": "#2196f3",
-                  "settings": {},
-                  "_hash": 0.6386723546307749
-                }
-              ],
-              "entityAliasId": "511f0210-9fa0-0699-5f2b-0ed3a8281540"
-            }
-          ],
-          "timewindow": {
-            "realtime": {
-              "timewindowMs": 60000
-            }
-          },
-          "showTitle": false,
-          "backgroundColor": "#eeeeee",
-          "color": "rgb(17, 17, 17)",
-          "padding": "16px",
-          "settings": {
-            "labelPosition": "top"
-          },
-          "title": "New Simple card",
-          "dropShadow": true,
-          "enableFullscreen": false,
-          "titleStyle": {
-            "fontSize": "16px",
-            "fontWeight": 400
-          },
-          "units": "",
-          "decimals": 0,
-          "useDashboardTimewindow": true,
-          "showLegend": false,
-          "widgetStyle": {},
-          "actions": {},
-          "showTitleIcon": false,
-          "titleIcon": null,
-          "iconColor": "rgba(0, 0, 0, 0.87)",
-          "iconSize": "24px",
-          "titleTooltip": "",
-          "enableDataExport": false,
-          "displayTimewindow": true
-        },
-        "id": "4719f8cf-000d-a268-a163-335f301d6abc"
       }
     },
     "states": {
       "default": {
-        "name": "Bournemouth Borough Council",
+        "name": "Watford Borough Council",
         "root": true,
         "layouts": {
           "main": {
@@ -920,28 +839,22 @@
           "main": {
             "widgets": {
               "80c3e5c7-7b5f-f281-a9c8-fab5e6dedf9f": {
-                "sizeX": 7,
-                "sizeY": 5,
-                "row": 4,
+                "sizeX": 6,
+                "sizeY": 9,
+                "row": 0,
                 "col": 0
+              },
+              "e7efab4c-87aa-4063-6435-d19c820cd776": {
+                "sizeX": 18,
+                "sizeY": 9,
+                "mobileHeight": null,
+                "row": 0,
+                "col": 6
               },
               "5c91248a-fe36-9811-1ccf-b668fc0b6491": {
                 "sizeX": 24,
                 "sizeY": 5,
                 "row": 9,
-                "col": 0
-              },
-              "2d2d45e5-869e-0b4b-bf68-ae0631fc0ee7": {
-                "sizeX": 17,
-                "sizeY": 9,
-                "mobileHeight": null,
-                "row": 0,
-                "col": 7
-              },
-              "4719f8cf-000d-a268-a163-335f301d6abc": {
-                "sizeX": 7,
-                "sizeY": 4,
-                "row": 0,
                 "col": 0
               }
             },
@@ -971,7 +884,7 @@
           "defaultStateGroupType": null,
           "defaultStateEntityGroup": null,
           "groupType": "DEVICE",
-          "entityGroup": "7778acc0-6849-11ea-baf2-6ff88ec57aeb"
+          "entityGroup": "0c167a20-6d12-11ea-baf2-6ff88ec57aeb"
         }
       },
       "511f0210-9fa0-0699-5f2b-0ed3a8281540": {
@@ -984,20 +897,6 @@
           "defaultStateEntity": null
         }
       },
-      "7ffffd9e-02c5-fc7e-6774-122f4aad0b96": {
-        "id": "7ffffd9e-02c5-fc7e-6774-122f4aad0b96",
-        "alias": "critical_bins",
-        "filter": {
-          "type": "entityGroup",
-          "resolveMultiple": true,
-          "groupStateEntity": false,
-          "stateEntityParamName": null,
-          "defaultStateGroupType": null,
-          "defaultStateEntityGroup": null,
-          "groupType": "DEVICE",
-          "entityGroup": "d729a8b0-69ff-11ea-baf2-6ff88ec57aeb"
-        }
-      },
       "9ccbf645-e37a-a225-0d7b-549a6a773fe1": {
         "id": "9ccbf645-e37a-a225-0d7b-549a6a773fe1",
         "alias": "count_egl",
@@ -1006,15 +905,29 @@
           "resolveMultiple": false,
           "groupType": "DEVICE",
           "entityGroupList": [
-            "7778acc0-6849-11ea-baf2-6ff88ec57aeb"
+            "0c167a20-6d12-11ea-baf2-6ff88ec57aeb"
           ]
+        }
+      },
+      "8f0311e1-ab62-03f6-5135-739438a03d66": {
+        "id": "8f0311e1-ab62-03f6-5135-739438a03d66",
+        "alias": "critical bins",
+        "filter": {
+          "type": "entityGroup",
+          "resolveMultiple": true,
+          "groupStateEntity": false,
+          "stateEntityParamName": null,
+          "defaultStateGroupType": null,
+          "defaultStateEntityGroup": null,
+          "groupType": "DEVICE",
+          "entityGroup": "3de54090-6f51-11ea-baf2-6ff88ec57aeb"
         }
       }
     },
     "timewindow": {
       "realtime": {
         "interval": 300000,
-        "timewindowMs": 3600000
+        "timewindowMs": 86400000
       },
       "aggregation": {
         "type": "AVG",
@@ -1035,5 +948,5 @@
       "titleColor": "rgba(0,0,0,0.870588)"
     }
   },
-  "name": "Bournemouth Borough Council"
+  "name": "Bins"
 }
