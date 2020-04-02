@@ -1,5 +1,5 @@
 {
-  "title": "Environment Dashboard",
+  "title": "Environment",
   "configuration": {
     "widgets": {
       "f88c32b5-a0f2-b3fc-876e-075c6b5f6d8b": {
@@ -1627,10 +1627,10 @@
           "defaultStateEntity": null,
           "rootEntity": {
             "entityType": "ASSET",
-            "id": "67a07ff1-6e8c-11ea-baf2-6ff88ec57aeb"
+            "id": "67a07ff0-6e8c-11ea-baf2-6ff88ec57aeb"
           },
           "direction": "TO",
-          "maxLevel": 5,
+          "maxLevel": 1,
           "relationType": null,
           "deviceTypes": [
             "Environment"
@@ -1703,5 +1703,5 @@
       "toolbarAlwaysOpen": true
     }
   },
-  "name": "Environment Dashboard"
+  "name": "Environment"
 }
