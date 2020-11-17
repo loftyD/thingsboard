@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# ssh thingsboard < db_dump.sh
+ts=$(date "+%Y%m%d")
+rsync -avP thingsboard:/tmp/thingsboard.sql "thingsboard_$ts.sql"
+
+# if [ "$1" != "local" ]; then
+#   echo '[x] Clearing old PG dumps'
+#   rm /tmp/data_cp.sql
+#
+#   echo '[x] Dumping PostGres'
+#   ssh cp < scripts/db_dump_cp.sh  # Live
+#   # ssh cp.com-stg < scripts/db_dump_cp_stg.sh   # Stg
+#   rsync -avP cp:/tmp/data_cp.sql /tmp  # Live
+#   # rsync -avP cp.com-stg:~/data_cp.gz /tmp   # Stg
+# fi
+#
+# echo '[x] Importing PostGres'
+# pg_restore -cO --no-acl -j 4 -d commsportal2_development /tmp/data_cp.sql
+#
+# echo '[x] Clearing PostGres DJ'
+# psql -d commsportal2_development -c 'DELETE FROM delayed_jobs where last_error is null;'

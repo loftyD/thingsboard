@@ -1,0 +1,22 @@
+RSSI [dBm]
+Humidity [%]
+Temperature [°C]
+Battery [%]
+Battery [V]
+
+Received At
+var date = new Date(value), date_str;
+
+if (value === undefined || value === "") { return '-'; }
+
+var the_date = ('0' + date.getDate().toString()).slice(-2);
+var the_month = ('0' + (date.getMonth() + 1).toString()).slice(-2);
+var the_hour = ('0' + date.getHours().toString()).slice(-2);
+var the_min = ('0' + date.getMinutes().toString()).slice(-2);
+var the_sec = ('0' + date.getSeconds().toString()).slice(-2);
+var the_year = date.getFullYear().toString();
+
+date_str = the_date + '/' + the_month + '/' + the_year + ' ';
+date_str += the_hour + ':' + the_min + ':' + the_sec
+
+return date_str;

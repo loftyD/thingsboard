@@ -1,0 +1,130 @@
+{
+  "title": "Gauge Dashboard",
+  "configuration": {
+    "widgets": [
+      {
+        "isSystemType": true,
+        "bundleAlias": "analogue_gauges",
+        "typeAlias": "speed_gauge_canvas_gauges",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 7,
+        "sizeY": 5,
+        "config": {
+          "datasources": [
+            {
+              "type": "function",
+              "dataKeys": [
+                {
+                  "name": "f(x)",
+                  "type": "function",
+                  "label": "Random",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.9608952507016115,
+                  "funcBody": "var value = prevValue + Math.random() * 100 - 50;\nvar multiplier = Math.pow(10, 2 || 0);\nvar value = Math.round(value * multiplier) / multiplier;\nif (value < -1000) {\n\tvalue = -1000;\n} else if (value > 1000) {\n\tvalue = 1000;\n}\nreturn value;"
+                }
+              ],
+              "deviceAliasId": null,
+              "name": "function"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": false,
+          "backgroundColor": "rgb(255, 255, 255)",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "maxValue": 1000,
+            "startAngle": 45,
+            "ticksAngle": 270,
+            "showBorder": false,
+            "defaultColor": "#e65100",
+            "needleCircleSize": 7,
+            "highlights": [
+              {
+                "to": 250,
+                "color": "#fdd835",
+                "from": 0
+              },
+              {
+                "color": "#e57373",
+                "from": 250,
+                "to": 750
+              },
+              {
+                "from": 750,
+                "to": 1000,
+                "color": "#f80808"
+              }
+            ],
+            "showUnitTitle": false,
+            "colorPlate": "#fff",
+            "colorMajorTicks": "#444",
+            "colorMinorTicks": "#666",
+            "minorTicks": 2,
+            "valueInt": 3,
+            "valueDec": 0,
+            "highlightsWidth": 15,
+            "valueBox": true,
+            "animation": true,
+            "animationDuration": 1500,
+            "animationRule": "linear",
+            "colorNeedleShadowUp": "rgba(2, 255, 255, 0)",
+            "colorNeedleShadowDown": "rgba(188, 143, 143, 0.78)",
+            "units": "MPH",
+            "majorTicksCount": 9,
+            "numbersFont": {
+              "family": "Roboto",
+              "size": 22,
+              "style": "normal",
+              "weight": "500",
+              "color": "#616161"
+            },
+            "titleFont": {
+              "family": "Roboto",
+              "size": 24,
+              "style": "normal",
+              "weight": "500",
+              "color": "#888"
+            },
+            "unitsFont": {
+              "family": "Roboto",
+              "size": 28,
+              "style": "normal",
+              "weight": "500",
+              "color": "#616161"
+            },
+            "valueFont": {
+              "size": 32,
+              "style": "normal",
+              "weight": "normal",
+              "shadowColor": "rgba(0, 0, 0, 0.49)",
+              "color": "#444",
+              "family": "Segment7Standard"
+            },
+            "colorValueBoxRect": "#888",
+            "colorValueBoxRectEnd": "#666",
+            "colorValueBoxBackground": "#babab2",
+            "colorValueBoxShadow": "rgba(0,0,0,1)",
+            "minValue": -1000
+          },
+          "title": "New Speed gauge - Canvas Gauges",
+          "dropShadow": true,
+          "enableFullscreen": true,
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          }
+        },
+        "row": 0,
+        "col": 0
+      }
+    ],
+    "deviceAliases": {}
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "title": "Bournemouth Borough Council",
+  "title": "Bournemouth bins",
   "configuration": {
     "widgets": {
       "d7daebb0-fbf9-4b03-dae5-2274bf87f685": {
@@ -457,7 +457,7 @@
                 {
                   "name": "countLevelLow",
                   "type": "timeseries",
-                  "label": "0-25%",
+                  "label": "0-24%",
                   "color": "#3771d0",
                   "settings": {},
                   "_hash": 0.37627923086733905
@@ -465,7 +465,7 @@
                 {
                   "name": "countLevelMedium",
                   "type": "timeseries",
-                  "label": "26-50%",
+                  "label": "25-49%",
                   "color": "#53c475",
                   "settings": {},
                   "_hash": 0.7700880942695936,
@@ -474,7 +474,7 @@
                 {
                   "name": "countLevelHigh",
                   "type": "timeseries",
-                  "label": "51-75%",
+                  "label": "50-74%",
                   "color": "#ecb233",
                   "settings": {},
                   "_hash": 0.0372773022335795
@@ -482,7 +482,7 @@
                 {
                   "name": "countLevelVeryHigh",
                   "type": "timeseries",
-                  "label": "76-100%",
+                  "label": "75-100%",
                   "color": "#e64c4c",
                   "settings": {},
                   "_hash": 0.4190437383538923
@@ -716,7 +716,7 @@
                     "fillLines": false,
                     "showPoints": false,
                     "showPointShape": "circle",
-                    "pointShapeFormatter": "var size = radius * Math.sqrt(Math.PI) / 2;\nctx.moveTo(x - size, y - size);\nctx.lineTo(x + size, y + size);\nctx.moveTo(x - size, y + size);\nctx.lineTo(x + size, y - size);",
+                    "pointShapeFormatter": "var size = radius * Math.sqrt(Math.PI) / 2;\nctx.moveTo(x - size, y - size);\nctx.lineTo(x + size, y + size);\nctx.moveTo(x - size, y + size);\nctx.lineTo(x + size, y - size);\n\nattributeService = ctx.$scope.$injector.get('attributeService');\n\nconsole.log(attributeService.getEntityAttributesValues('DEVICE', deviceIdsKeys[0].deviceId, 'SHARED_SCOPE', 'level_critical'));",
                     "showPointsLineWidth": 5,
                     "showPointsRadius": 3,
                     "showSeparateAxis": false,
@@ -734,20 +734,17 @@
             }
           ],
           "timewindow": {
-            "hideInterval": false,
-            "hideAggregation": false,
-            "hideAggInterval": false,
-            "history": {
-              "fixedTimewindow": {
-                "startTimeMs": 1585250627665.6958,
-                "endTimeMs": 1585250952430.0286
-              },
-              "interval": 32476.43327636719
+            "realtime": {
+              "interval": 300000,
+              "timewindowMs": 86400000
             },
             "aggregation": {
               "type": "AVG",
               "limit": 25000
-            }
+            },
+            "hideInterval": false,
+            "hideAggregation": false,
+            "hideAggInterval": false
           },
           "showTitle": true,
           "backgroundColor": "#fff",
@@ -1035,5 +1032,5 @@
       "titleColor": "rgba(0,0,0,0.870588)"
     }
   },
-  "name": "Bournemouth Borough Council"
+  "name": "Bournemouth bins"
 }

@@ -1,7 +1,7 @@
 {
-  "title": "Bearsden Academy",
+  "title": "Engie test",
   "configuration": {
-    "description": "Bearsden Academy",
+    "description": "Engie test",
     "widgets": {
       "3413cb3b-16c5-ca57-a0a3-6f25541f8309": {
         "isSystemType": true,
@@ -531,7 +531,7 @@
               "showLabels": true
             }
           },
-          "title": "CE 000265",
+          "title": "CE 000254",
           "dropShadow": true,
           "enableFullscreen": true,
           "titleStyle": {
@@ -560,173 +560,6 @@
           }
         },
         "id": "a3403f00-2d11-05ab-125d-b295b8c77fcb"
-      },
-      "b3c1f82a-226a-96aa-0fa2-e1ca55a430ee": {
-        "isSystemType": true,
-        "bundleAlias": "charts",
-        "typeAlias": "timeseries_bars_flot",
-        "type": "timeseries",
-        "title": "New widget",
-        "sizeX": 24,
-        "sizeY": 7,
-        "config": {
-          "datasources": [
-            {
-              "type": "entity",
-              "dataKeys": [
-                {
-                  "name": "theshold_acc_a_delta",
-                  "type": "timeseries",
-                  "label": "> 50",
-                  "color": "#2196f3",
-                  "settings": {
-                    "excludeFromStacking": false,
-                    "hideDataByDefault": false,
-                    "disableDataHiding": false,
-                    "removeFromLegend": false,
-                    "showLines": false,
-                    "fillLines": false,
-                    "showPoints": false,
-                    "showPointShape": "circle",
-                    "pointShapeFormatter": "var size = radius * Math.sqrt(Math.PI) / 2;\nctx.moveTo(x - size, y - size);\nctx.lineTo(x + size, y + size);\nctx.moveTo(x - size, y + size);\nctx.lineTo(x + size, y - size);",
-                    "showPointsLineWidth": 5,
-                    "showPointsRadius": 3,
-                    "showSeparateAxis": false,
-                    "axisPosition": "left",
-                    "comparisonSettings": {
-                      "showValuesForComparison": true
-                    }
-                  },
-                  "_hash": 0.1131591101973266,
-                  "postFuncBody": "return value * 9;"
-                },
-                {
-                  "name": "theshold_acc_b_delta",
-                  "type": "timeseries",
-                  "label": "> 60",
-                  "color": "#4caf50",
-                  "settings": {
-                    "excludeFromStacking": false,
-                    "hideDataByDefault": false,
-                    "disableDataHiding": false,
-                    "removeFromLegend": false,
-                    "showLines": false,
-                    "fillLines": false,
-                    "showPoints": false,
-                    "showPointShape": "circle",
-                    "pointShapeFormatter": "var size = radius * Math.sqrt(Math.PI) / 2;\nctx.moveTo(x - size, y - size);\nctx.lineTo(x + size, y + size);\nctx.moveTo(x - size, y + size);\nctx.lineTo(x + size, y - size);",
-                    "showPointsLineWidth": 5,
-                    "showPointsRadius": 3,
-                    "showSeparateAxis": false,
-                    "axisPosition": "left",
-                    "comparisonSettings": {
-                      "showValuesForComparison": true
-                    }
-                  },
-                  "_hash": 0.19349638987874174,
-                  "postFuncBody": "return value * 9;"
-                },
-                {
-                  "name": "theshold_acc_c_delta",
-                  "type": "timeseries",
-                  "label": "> 70",
-                  "color": "#f44336",
-                  "settings": {
-                    "excludeFromStacking": false,
-                    "hideDataByDefault": false,
-                    "disableDataHiding": false,
-                    "removeFromLegend": false,
-                    "showLines": false,
-                    "fillLines": false,
-                    "showPoints": false,
-                    "showPointShape": "circle",
-                    "pointShapeFormatter": "var size = radius * Math.sqrt(Math.PI) / 2;\nctx.moveTo(x - size, y - size);\nctx.lineTo(x + size, y + size);\nctx.moveTo(x - size, y + size);\nctx.lineTo(x + size, y - size);",
-                    "showPointsLineWidth": 5,
-                    "showPointsRadius": 3,
-                    "showSeparateAxis": false,
-                    "axisPosition": "left",
-                    "comparisonSettings": {
-                      "showValuesForComparison": true
-                    }
-                  },
-                  "_hash": 0.9297202739589706,
-                  "postFuncBody": "return value * 9;"
-                }
-              ],
-              "entityAliasId": "b5ea320a-5cf3-6b5e-fb53-40301959e61d"
-            }
-          ],
-          "timewindow": {
-            "realtime": {
-              "interval": 21600000,
-              "timewindowMs": 2592000000
-            },
-            "aggregation": {
-              "type": "MAX",
-              "limit": 200
-            }
-          },
-          "showTitle": true,
-          "backgroundColor": "#fff",
-          "color": "rgba(0, 0, 0, 0.87)",
-          "padding": "8px",
-          "settings": {
-            "shadowSize": 4,
-            "fontColor": "#545454",
-            "fontSize": 10,
-            "xaxis": {
-              "showLabels": true,
-              "color": "#545454"
-            },
-            "yaxis": {
-              "showLabels": true,
-              "color": "#545454"
-            },
-            "grid": {
-              "color": "#545454",
-              "tickColor": "#DDDDDD",
-              "verticalLines": true,
-              "horizontalLines": true,
-              "outlineWidth": 1
-            },
-            "stack": true,
-            "tooltipIndividual": false,
-            "defaultBarWidth": 600,
-            "timeForComparison": "months",
-            "xaxisSecond": {
-              "axisPosition": "top",
-              "showLabels": true
-            }
-          },
-          "title": "CE 000282",
-          "dropShadow": true,
-          "enableFullscreen": true,
-          "titleStyle": {
-            "fontSize": "16px",
-            "fontWeight": 400
-          },
-          "mobileHeight": null,
-          "widgetStyle": {},
-          "useDashboardTimewindow": true,
-          "showLegend": true,
-          "actions": {},
-          "showTitleIcon": false,
-          "titleIcon": null,
-          "iconColor": "rgba(0, 0, 0, 0.87)",
-          "iconSize": "24px",
-          "titleTooltip": "",
-          "enableDataExport": true,
-          "displayTimewindow": false,
-          "legendConfig": {
-            "direction": "column",
-            "position": "right",
-            "showMin": false,
-            "showMax": false,
-            "showAvg": false,
-            "showTotal": false
-          }
-        },
-        "id": "b3c1f82a-226a-96aa-0fa2-e1ca55a430ee"
       },
       "075f53e1-a5cc-abca-0a4c-7ac02e15c00d": {
         "isSystemType": true,
@@ -1011,13 +844,6 @@
                 "mobileHeight": null,
                 "row": 25,
                 "col": 0
-              },
-              "b3c1f82a-226a-96aa-0fa2-e1ca55a430ee": {
-                "sizeX": 24,
-                "sizeY": 7,
-                "mobileHeight": null,
-                "row": 33,
-                "col": 0
               }
             },
             "gridSettings": {
@@ -1082,7 +908,7 @@
           "defaultStateEntity": null,
           "rootEntity": {
             "entityType": "ASSET",
-            "id": "fe104a70-7070-11ea-baf2-6ff88ec57aeb"
+            "id": "39bf0720-85a5-11ea-9adf-09dbe93621ec"
           },
           "direction": "FROM",
           "maxLevel": 1,
@@ -1100,7 +926,7 @@
           "resolveMultiple": false,
           "singleEntity": {
             "entityType": "DEVICE",
-            "id": "f9527170-66f2-11ea-baf2-6ff88ec57aeb"
+            "id": "ff704cd0-66f2-11ea-baf2-6ff88ec57aeb"
           }
         }
       },
@@ -1112,19 +938,7 @@
           "resolveMultiple": false,
           "singleEntity": {
             "entityType": "DEVICE",
-            "id": "ebc20020-66f2-11ea-baf2-6ff88ec57aeb"
-          }
-        }
-      },
-      "b5ea320a-5cf3-6b5e-fb53-40301959e61d": {
-        "id": "b5ea320a-5cf3-6b5e-fb53-40301959e61d",
-        "alias": "Hot 2",
-        "filter": {
-          "type": "singleEntity",
-          "resolveMultiple": false,
-          "singleEntity": {
-            "entityType": "DEVICE",
-            "id": "efba8a80-66f2-11ea-baf2-6ff88ec57aeb"
+            "id": "0006c070-66f3-11ea-baf2-6ff88ec57aeb"
           }
         }
       },
@@ -1163,5 +977,5 @@
       "titleColor": "rgba(0,0,0,0.870588)"
     }
   },
-  "name": "Bearsden Academy"
+  "name": "Engie test"
 }

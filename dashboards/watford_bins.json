@@ -1,5 +1,5 @@
 {
-  "title": "Bins",
+  "title": "Watford bins",
   "configuration": {
     "widgets": {
       "d7daebb0-fbf9-4b03-dae5-2274bf87f685": {
@@ -62,18 +62,31 @@
                   "_hash": 0.09138160633088721
                 },
                 {
+                  "name": "location",
+                  "type": "attribute",
+                  "label": "Location",
+                  "color": "#607d8b",
+                  "settings": {
+                    "columnWidth": "0px",
+                    "useCellStyleFunction": false,
+                    "useCellContentFunction": false
+                  },
+                  "_hash": 0.5337041115623404
+                },
+                {
                   "name": "level",
                   "type": "timeseries",
                   "label": "Level",
                   "color": "#2196f3",
                   "settings": {
                     "columnWidth": "0px",
-                    "useCellStyleFunction": false,
-                    "useCellContentFunction": false
+                    "useCellStyleFunction": true,
+                    "useCellContentFunction": false,
+                    "cellStyleFunction": "if(value === -1) {\n    return { \n        \"color\": \"white\"\n    };\n}"
                   },
                   "_hash": 0.304617083323649,
                   "units": "%",
-                  "postFuncBody": "if(value === '' || value === null) {\n    return '-';\n}\nreturn value;"
+                  "postFuncBody": "if(value === '' || value === null) {\n    return -1;\n}\nreturn value;"
                 },
                 {
                   "name": "temp",
@@ -97,7 +110,7 @@
                     "columnWidth": "0px",
                     "useCellStyleFunction": false,
                     "useCellContentFunction": true,
-                    "cellContentFunction": "var date = new Date(value);\nvar the_date = `0${date.getDate()}`.slice(-2);\nvar the_month = `0${date.getMonth() + 1}`.slice(-2);\nvar the_hour = `0${date.getHours()}`.slice(-2);\nvar the_min = `0${date.getMinutes()}`.slice(-2);\nvar the_sec = `0${date.getSeconds()}`.slice(-2);\n\nreturn `${the_date}/${the_month}/${date.getFullYear()} ${the_hour}:${the_min}:${the_sec}`;"
+                    "cellContentFunction": "var date = new Date(value),\n    date_str;\nvar the_date = ('0' + date.getDate().toString()).slice(-2);\nvar the_month = ('0' + (date.getMonth() + 1).toString()).slice(-2);\nvar the_hour = ('0' + date.getHours().toString()).slice(-2);\nvar the_min = ('0' + date.getMinutes().toString()).slice(-2);\nvar the_sec = ('0' + date.getSeconds().toString()).slice(-2);\nvar the_year = date.getFullYear().toString();\n\ndate_str = the_date + '/' + the_month + '/' + the_year + ' ';\ndate_str += the_hour + ':' + the_min + ':' + the_sec\n\nreturn date_str;"
                   },
                   "_hash": 0.6486082347130521
                 }
@@ -134,8 +147,8 @@
         "typeAlias": "neon_gauge_justgage",
         "type": "latest",
         "title": "New widget",
-        "sizeX": 6,
-        "sizeY": 9,
+        "sizeX": 7,
+        "sizeY": 7,
         "config": {
           "datasources": [
             {
@@ -162,8 +175,8 @@
             }
           },
           "showTitle": false,
-          "backgroundColor": "rgba(1, 0, 0, 0.93)",
-          "color": "rgb(255, 254, 254)",
+          "backgroundColor": "#333333",
+          "color": "rgb(238, 238, 238)",
           "padding": "0px",
           "settings": {
             "maxValue": 100,
@@ -177,25 +190,29 @@
               "family": "Roboto",
               "size": 12,
               "style": "normal",
-              "weight": "500"
+              "weight": "500",
+              "color": "#333333"
             },
             "labelFont": {
               "family": "Roboto",
               "size": 8,
               "style": "normal",
-              "weight": "500"
+              "weight": "500",
+              "color": "#333333"
             },
             "valueFont": {
               "family": "Segment7Standard",
               "style": "normal",
               "weight": "500",
-              "size": 32
+              "size": 32,
+              "color": "#333333"
             },
             "minMaxFont": {
               "family": "Segment7Standard",
               "size": 12,
               "style": "normal",
-              "weight": "500"
+              "weight": "500",
+              "color": "#333333"
             },
             "neonGlowBrightness": 70,
             "dashThickness": 1,
@@ -207,11 +224,12 @@
             "roundedLineCap": false,
             "showUnitTitle": true,
             "unitTitle": "%",
-            "gaugeColor": "#000000"
+            "defaultColor": "#ffebee",
+            "gaugeColor": "#ffebee"
           },
           "title": "",
           "dropShadow": true,
-          "enableFullscreen": true,
+          "enableFullscreen": false,
           "titleStyle": {
             "fontSize": "16px",
             "fontWeight": 400
@@ -225,156 +243,10 @@
           "iconColor": "rgba(0, 0, 0, 0.87)",
           "iconSize": "24px",
           "titleTooltip": "",
-          "enableDataExport": true,
+          "enableDataExport": false,
           "displayTimewindow": true
         },
         "id": "80c3e5c7-7b5f-f281-a9c8-fab5e6dedf9f"
-      },
-      "e7efab4c-87aa-4063-6435-d19c820cd776": {
-        "isSystemType": true,
-        "bundleAlias": "charts",
-        "typeAlias": "basic_timeseries",
-        "type": "timeseries",
-        "title": "New widget",
-        "sizeX": 18,
-        "sizeY": 9,
-        "config": {
-          "datasources": [
-            {
-              "type": "entity",
-              "dataKeys": [
-                {
-                  "name": "level",
-                  "type": "timeseries",
-                  "label": "Level",
-                  "color": "#2196f3",
-                  "settings": {
-                    "excludeFromStacking": false,
-                    "hideDataByDefault": false,
-                    "disableDataHiding": false,
-                    "removeFromLegend": false,
-                    "showLines": true,
-                    "fillLines": false,
-                    "showPoints": false,
-                    "showPointShape": "circle",
-                    "pointShapeFormatter": "var size = radius * Math.sqrt(Math.PI) / 2;\nctx.moveTo(x - size, y - size);\nctx.lineTo(x + size, y + size);\nctx.moveTo(x - size, y + size);\nctx.lineTo(x + size, y - size);",
-                    "showPointsLineWidth": 5,
-                    "showPointsRadius": 3,
-                    "showSeparateAxis": true,
-                    "axisPosition": "left",
-                    "comparisonSettings": {
-                      "showValuesForComparison": false
-                    },
-                    "axisTitle": "Level (%)"
-                  },
-                  "_hash": 0.8563722240032092,
-                  "units": "%"
-                },
-                {
-                  "name": "temp",
-                  "type": "timeseries",
-                  "label": "Temperature",
-                  "color": "#4caf50",
-                  "settings": {
-                    "excludeFromStacking": false,
-                    "hideDataByDefault": false,
-                    "disableDataHiding": false,
-                    "removeFromLegend": false,
-                    "showLines": true,
-                    "fillLines": false,
-                    "showPoints": false,
-                    "showPointShape": "circle",
-                    "pointShapeFormatter": "var size = radius * Math.sqrt(Math.PI) / 2;\nctx.moveTo(x - size, y - size);\nctx.lineTo(x + size, y + size);\nctx.moveTo(x - size, y + size);\nctx.lineTo(x + size, y - size);",
-                    "showPointsLineWidth": 5,
-                    "showPointsRadius": 3,
-                    "showSeparateAxis": true,
-                    "axisPosition": "right",
-                    "comparisonSettings": {
-                      "showValuesForComparison": true
-                    },
-                    "axisTitle": "Temperature (°C)"
-                  },
-                  "_hash": 0.5954528674965507,
-                  "units": "°C"
-                }
-              ],
-              "entityAliasId": "511f0210-9fa0-0699-5f2b-0ed3a8281540"
-            }
-          ],
-          "timewindow": {
-            "realtime": {
-              "interval": 300000,
-              "timewindowMs": 86400000
-            },
-            "aggregation": {
-              "type": "AVG",
-              "limit": 25000
-            }
-          },
-          "showTitle": true,
-          "backgroundColor": "#fff",
-          "color": "rgba(0, 0, 0, 0.87)",
-          "padding": "8px",
-          "settings": {
-            "shadowSize": 4,
-            "fontColor": "#545454",
-            "fontSize": 10,
-            "xaxis": {
-              "showLabels": true,
-              "color": "#545454",
-              "title": "Time"
-            },
-            "yaxis": {
-              "showLabels": true,
-              "color": "#545454"
-            },
-            "grid": {
-              "color": "#545454",
-              "tickColor": "#DDDDDD",
-              "verticalLines": true,
-              "horizontalLines": true,
-              "outlineWidth": 1
-            },
-            "stack": false,
-            "tooltipIndividual": false,
-            "timeForComparison": "weeks",
-            "xaxisSecond": {
-              "axisPosition": "top",
-              "showLabels": true
-            },
-            "smoothLines": false,
-            "comparisonEnabled": false,
-            "tooltipCumulative": false
-          },
-          "title": "Last 24 Hours",
-          "dropShadow": true,
-          "enableFullscreen": true,
-          "titleStyle": {
-            "fontSize": "16px",
-            "fontWeight": 400
-          },
-          "mobileHeight": null,
-          "showTitleIcon": false,
-          "titleIcon": null,
-          "iconColor": "rgba(0, 0, 0, 0.87)",
-          "iconSize": "24px",
-          "titleTooltip": "",
-          "enableDataExport": true,
-          "widgetStyle": {},
-          "useDashboardTimewindow": false,
-          "displayTimewindow": true,
-          "showLegend": true,
-          "actions": {},
-          "legendConfig": {
-            "direction": "column",
-            "position": "bottom",
-            "showMin": false,
-            "showMax": false,
-            "showAvg": false,
-            "showTotal": false
-          }
-        },
-        "id": "e7efab4c-87aa-4063-6435-d19c820cd776"
       },
       "5c91248a-fe36-9811-1ccf-b668fc0b6491": {
         "isSystemType": true,
@@ -383,7 +255,7 @@
         "type": "timeseries",
         "title": "New widget",
         "sizeX": 24,
-        "sizeY": 5,
+        "sizeY": 7,
         "config": {
           "datasources": [
             {
@@ -505,16 +377,30 @@
               "type": "entity",
               "dataKeys": [
                 {
-                  "name": "label",
+                  "name": "name",
                   "type": "entityField",
-                  "label": "Device",
+                  "label": "Name",
+                  "color": "#4caf50",
+                  "settings": {
+                    "columnWidth": "0px",
+                    "useCellStyleFunction": false,
+                    "cellStyleFunction": "",
+                    "useCellContentFunction": false,
+                    "cellContentFunction": ""
+                  },
+                  "_hash": 0.9897588431279605
+                },
+                {
+                  "name": "location",
+                  "type": "attribute",
+                  "label": "Location",
                   "color": "#f44336",
                   "settings": {
                     "columnWidth": "0px",
                     "useCellStyleFunction": false,
                     "useCellContentFunction": false
                   },
-                  "_hash": 0.7350930365343794
+                  "_hash": 0.9356594915630978
                 },
                 {
                   "name": "level",
@@ -528,22 +414,9 @@
                   },
                   "_hash": 0.43153514678540783,
                   "units": "%"
-                },
-                {
-                  "name": "lastActivityTime",
-                  "type": "attribute",
-                  "label": "Received At",
-                  "color": "#f44336",
-                  "settings": {
-                    "columnWidth": "0px",
-                    "useCellStyleFunction": false,
-                    "useCellContentFunction": true,
-                    "cellContentFunction": "var date = new Date(value);\nvar the_date = `0${date.getDate()}`.slice(-2);\nvar the_month = `0${date.getMonth() + 1}`.slice(-2);\nvar the_hour = `0${date.getHours()}`.slice(-2);\nvar the_min = `0${date.getMinutes()}`.slice(-2);\nvar the_sec = `0${date.getSeconds()}`.slice(-2);\n\nreturn `${the_date}/${the_month}/${date.getFullYear()} ${the_hour}:${the_min}:${the_sec}`;"
-                  },
-                  "_hash": 0.22352386717509676
                 }
               ],
-              "entityAliasId": "8f0311e1-ab62-03f6-5135-739438a03d66"
+              "entityAliasId": "24ae13cc-a40f-a741-0010-1b893575c590"
             }
           ],
           "showTitleIcon": false,
@@ -681,19 +554,35 @@
                 },
                 {
                   "name": "level",
-                  "type": "timeseries",
+                  "type": "attribute",
                   "label": "level",
                   "color": "#f44336",
                   "settings": {},
-                  "_hash": 0.26781170435171164
+                  "_hash": 0.2043883586631916
+                },
+                {
+                  "name": "level",
+                  "type": "timeseries",
+                  "label": "level",
+                  "color": "#ffc107",
+                  "settings": {},
+                  "_hash": 0.43250525388268213
                 },
                 {
                   "name": "location",
                   "type": "attribute",
                   "label": "location",
-                  "color": "#ffc107",
+                  "color": "#607d8b",
                   "settings": {},
-                  "_hash": 0.6956443978659264
+                  "_hash": 0.4449082798722943
+                },
+                {
+                  "name": "level_status",
+                  "type": "timeseries",
+                  "label": "level_status",
+                  "color": "#9c27b0",
+                  "settings": {},
+                  "_hash": 0.08312731468439072
                 }
               ],
               "entityAliasId": "53221a12-4f9e-5938-f0c7-e72e05f15c99"
@@ -724,9 +613,7 @@
               "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAB/CAYAAAD4mHJdAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAACWAAAAlgB7MGOJQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAxNSURBVGiB7Zp7kFTllcB/5/a93dMz3T0PemYIDgoCPhZ5iaD4wNkFjQjRRMlLTNbSlKlyzZpobSVbFRPUbNVWSRCWuKvlxqybtbIrukp4SATZCAgospEBgeElj4EZ5t3d0+++37d/9O2ZnqEHQZzZSlXfqlMz/c253+875zvfOefeHuH8L6u83P+AwH0lJZ4pbrenEiCVSnYmEsndGl4NhSKvAJkLmPPcV0VFxZjKivKPv77wXr274WN9uvm0PnHihD5y9IhuPNioN216Vy+Yf6eurAj8b2Vl5aXnM6d8loLf7w9apvHhyy//29jZ9fW0t7fpdWtWN7Wdao4qpaiqDpbdXF9fV1paKpu3bGbxk08eSWXU9ZFIpOPirC33v7xs+TIdiUT0Pz239NjeaTOTHXXjdb4cuP6W5DOLFx/7aNdH+oknfqQryv0vXZTFfr8/GKyqaN7XeMhc//ba6NSfPFXqS6fESJ29jdGAX69+9KHY9OnTyxbec08mHInWhsPhzsHmNs4FNgxdf+NNN5sAh3/7n40dCxeKedUsOr6x8CzdsnBEQu9sPABwzTWTTMNQ9eec+1x/FDEuGTduHABXtreOKutJYyiFqq4tqD+5O3wJQF1dHSij7nODtdZuj9cLgMfGOpcuQInSFoDldqNFez43eCivIrgILoKL4CK4CC6Ci+AiuAgugovgIrgILoKL4CK4CC6Ci+A/B7B5vor6Mz4PNnbRYAAtoCQLUMMFVobuBWOALWdjVIGxiwbbZC3WkrXWLqAzJBZrR5T0LWTgdSHfdF1YcIlG57t8oM5nfov1OcCKPmDW1Rfi2IsA5yI5F9WFXF0o0i8arARwggsBu4BbhwaM6g0ujXY+9b+GLqrzLR5E5wsH2ziB5QRXoW8lCy3mosH553iwlDlEe9znai2DpMyhAJ+PxUNTJMhZm51+WM9xvsWFXD2kx0nl9rjQ4oYC3C+4BoEMnasl39Vn6wxRdcqbXApXpwupWBcEVgLKGLw6DU1w5bkaCjcChcYuHozuLYtqEFfroXC1TZ67GcbjlEuZWjSIHr6ozjZ7/y/VSWOLdgJIF9zjQl3JFwDOXn1lsYDOULm6X+YaROcLB6s8+LC2tzqvoc+Wx0L2nT/6wlIm5y6LQ9bs5TLXsO5x7jG192lxuJq9bCOg0aIRGcYEkt9lCsPp6lxlMsBlFE4ghcYuGoxznHKFYNjKYq7Zy5XFYW32lMtCBGzbLlwWLwB83m/2NNC44R0iFaP503+8jO1UqHz5wiwW0aNzvysgdPJTQr/7dFD9fHD+vecN9vl8NaYpv546ZeqCBx98CMhGbPXEqZRfcTWmyySTjuO2TMora/B4Sji+832OnWoGYMGCBez88IMfHD50eExG6Yd6enraBjJcAwf8fv+Vbsv1Pz9f/NT1y1esQCnNPz6zeGuy6WBN+MRRrwp1YMR6MOIJMqEuOj49xNFd2zh5aD9SVpr44PCJXVOmXXvpHfPm4fP7rtz98Z/usSz3+lQq1e/fnvuFSHl5+VjTNLb96lfPj6yv/0t2bN/eufJnj+37Uql1c/1Xv8WM279CaZn/rJcBGoj1hNm+7k22rF5JcyK1edp3Hps0bfq0yj0Ne/jFL55pVopZ3d3dx88C19bWlqVS8Z2Lf/7U1XNvu51Vb72x7/irz9fUBEcEv/03PyFYPRJDgZHt9XpvzG8QlAFnWppY+S9LaOnsaPPOWdhxx7z5V320cydLl/7yE2+pb+bp06dj/VxtWbJ03h13zr/r7rtZu2bNwVP/9cKYMiHwtW8+QNAbwOiOIN09SCiChCKQL+EIKhxBhcN4EGpGjuJww66yxNH9gePac+zGm26sikQiNY379/kSydT63uCqrCybXB6oeuS+RYvYv29f/OTKFz1+dIlXXFQrCznRjNhkRfdJzmIMEAExsqbUmh68holWGXf43deMg6NHJ+5btKjkgw8//IFh8lJnZ88nBoBWxpPf+e53DYC1Ly5bVSb6Mo8WSrQgx5uRY6cHSDMcz0q/vx/PSTNeJXi04EOPfe93L70JcP/99xu2bfwUwPT5fNU+n++rM2fO5P3332+uS3V9y9KCG8FSmtjRo3iN0uz+qqylemDnLhpDQDsFJGrHMG2F2xAyGi5Nhr65Y8f21unTZ9T4yrz3KqVHGC4X91x33XUmwN7N775nApbuk90nD5BpbUbaWqG9Dd3eju5o6y/t7dDehrS1kmltYffJ/ViA25nDBcbeLZs2AUyaNNkyDL5minDL7Nm3opSiNtQ0yUQwESydlXg6xc70Sf5CewliYSD9TqHu/anpIMUnJIiLjSVCGjAFTA21odNTlFLMunEWO7bvuMUUjKkTrriCvXv3RDyiJxpacGVXSc56W2uO6DhtKkmFFsocHchmtKhoukURNrJPG5YDdAEuDYaAV/TVjY0HesaNG+8Tw5hmuC1zFEBLS0urkQ3QPtFgILgQTC0IkAZSgEJQCClnTBwdF4KBOPf2iQBnzrS2GYaBZblGmWK4/ADxWCzqoS85iDOZDFiMS2ddV5Kz2EkGhgwECYLOzqOzxy0W7YkAiBgBw7btFIC3tMw/2JsrnS9OI5B2pPdt0AC9gdVZZxkBANu2k0Ymk2kDCI6oqsw1c/nNu8rVW8l+2ZFCkxRNzMhKUjQpNBlnv23nXfbAeTRQHayudMBtBlod6OrqZNz4CeVprcKqd4KsZBxgGk1KNEmBmGiijsScsZRo0s4CMnn3284CMqJCY8aOCXR2dqK0PmBokQ3r1q7D7/dLq7tyY8axMCOatDNZFqhJiCbuWNsLNrJjCUcnt4C0ZOew0WTQnDYr3/X5fLJx4wZE5B1DKVm1a9dHAIyYesPYjEBa+vYwJZAUSAgkHAtjookaWcl9Togm4eim8u5PS9YDNVNmXg7QsLsBreX3RjgcPtzW1rarubmZ+QvumtahXJvzrUzmWRvrZ61yxNnvPKuTA6xvt13bvjxv/tSW5mY6Ozt3hkKhoy4Ar6ek6dChg4vm3nY7oZJAJnG4oUIQESdD5Ud0v30XSBlZC1OGdjyTA/darwK3LcxcPm585ZJnl9ATinwvnkweNgC6wuF1x44d27R3714WfOWucZGrb3g7kee+eJ6LewPLcXU0bzwuuf2G3P3NoyevnzP3tsv3NOylqenkHzvD4fWQ197aikeW/nJJd1dnJ4//9On57V+a8Hoib7K4kQeUAWL0D7RcsJ2oqHv9wUcfu7Orq5MVK5Z3KS0P53j96lsgEPjyiKqKtW/891uu2tpalvzDMxsTW96s9yhMC8HUOCkxm07JO/fZk5A9dkmDTOSqWe/99fcfmRPtifHY3z6a6Q5F7gyFQhsKggFGjKh4wFviffG11153T59xHVu3bg3968/+7g9V3ae+0Zv0kX49l3ISjA2ccpe/NXvR9+uvnX5tRdOpJv7+xz9OxnpiD3d0d/97PqcXrLWeBcwGLnv11d96n3j88QVPPf108KHvPUwmk+HttWu71q96Y0dozzajJBUfXyqMA4gpfShmeY54JkzX19/6VzfMmDmjMpPOsOqtVbzyym9alz23fM23Fy1KACeAP4rIBwCitb4MeAQY5SxEt7a2qIaGBn70wx+OTKXTc5Y+t8w1d85cdN5KtdbYSqGVImPbJOIxotEo6/+wniXPPmsH/L4Ny5etaJk46Rqprq7JPTgooBn4Z9FaPw9UAHR1dSnbTsuZMy1GMpnItLZ2GFu3bq5d/fvVc0ZUjZB7F36d2fW3MmHCFZguF0pr0uk0Bxsb2bL5PV5fuZLuUEjfdffdG2+66ebW6mCVLvP5qa4OAoYEg8Gcg7tNIAIEADHdJnbcxmNZ6UQ05nK7TT1x4sRYRVV1/FTTqdLVa9bywgsvEImESKfSAFiWhT9QzqhL6rh25g3UjbokPnJkTaKkxFRaa8NtGbaIy+Up8eS2VgEx0VpXO66+HKfdbW9vV93d7RKNJl3xeNQOd4d1Mp0i3B3yRCKRsmgiYSVTaa9orS23lfR5vany8vKYLxCIeyxLKqoqtddbKh6PSVVVtQ4Gg5IHPQI8nx9ck4CbgSuBarJnvARsiUai4XBPmGQyqbWGRCxh2VrZAKYYLtNjZUyXSxsuU6oqyg1fwO91nhUSzvQdwB5gm4h8UvA4OYsoByYDY4EaoBLwAN7sYiDvZ4LsqUo60uNIK3AY2CMioYGM/wPREY0iGUY58wAAAABJRU5ErkJggg=="
             ],
             "useMarkerImageFunction": true,
-            "colorFunction": "var type = dsData[dsIndex]['type'];\nif (type == 'colorpin') {\n\tvar temperature = dsData[dsIndex]['temperature'];\n\tif (typeof temperature !== undefined) {\n\t    var percent = (temperature + 60)/120 * 100;\n\t    return tinycolor.mix('blue', 'red', amount = percent).toHexString();\n\t}\n\treturn 'blue';\n}\n",
             "markerImageFunction": "var type = dsData[dsIndex]['type'];\nif (type == 'thermomether') {\n\tvar res = {\n\t    url: images[0],\n\t    size: 40\n\t}\n\tvar temperature = dsData[dsIndex]['temperature'];\n\tif (typeof temperature !== undefined) {\n\t    var percent = (temperature + 60)/120;\n\t    var index = Math.min(3, Math.floor(4 * percent));\n\t    res.url = images[index];\n\t}\n\treturn res;\n}",
-            "color": "#fe7569",
             "mapProvider": "OpenStreetMap.Mapnik",
             "showTooltip": true,
             "autocloseTooltip": false,
@@ -749,7 +636,8 @@
             "disableScrollZooming": true,
             "useTooltipFunction": true,
             "useClusterMarkers": true,
-            "tooltipFunction": "lbl = \"<b>${entityName}</b><br /><b>Location</b> \" +\n    dsData[dsIndex].location + \"<br />\";\n\nif (dsData[dsIndex].level !== null)\n    lbl += \"<b>Level</b> \" + dsData[dsIndex].level + \"%\";\n\nreturn lbl;"
+            "tooltipFunction": "lbl = \"<b>${entityName}</b><br /><b>Location</b> \" + dsData[dsIndex].location + \"<br />\";\n\nif(dsData[dsIndex].level !== null)\n    lbl += \"<b>Level</b> \" + dsData[dsIndex].level + \"%\";\n    \n    return lbl;",
+            "colorFunction": "let color;\n\nif(dsData[dsIndex].level_status === \"critical\") {\n    color = \"red\";\n} else if(dsData[dsIndex].level_status === \"warning\") {\n    color = \"orange\";\n} else if(dsData[dsIndex].level_status === \"ok\") {\n    color = \"green\";\n} else {\n    color = \"silver\";\n}\n\nreturn color;\n"
           },
           "title": "",
           "dropShadow": true,
@@ -782,6 +670,239 @@
           "displayTimewindow": true
         },
         "id": "8479a3af-12a9-ca71-f498-de79f0f8ad72"
+      },
+      "2d2d45e5-869e-0b4b-bf68-ae0631fc0ee7": {
+        "isSystemType": false,
+        "bundleAlias": "better_widgets",
+        "typeAlias": "flot_hide_2nd_y_axis_",
+        "type": "timeseries",
+        "title": "New widget",
+        "sizeX": 17,
+        "sizeY": 7,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "level",
+                  "type": "timeseries",
+                  "label": "Level",
+                  "color": "#2196f3",
+                  "settings": {
+                    "excludeFromStacking": false,
+                    "hideDataByDefault": false,
+                    "disableDataHiding": false,
+                    "removeFromLegend": false,
+                    "showLines": true,
+                    "fillLines": false,
+                    "showPoints": false,
+                    "showPointShape": "circle",
+                    "pointShapeFormatter": "var size = radius * Math.sqrt(Math.PI) / 2;\nctx.moveTo(x - size, y - size);\nctx.lineTo(x + size, y + size);\nctx.moveTo(x - size, y + size);\nctx.lineTo(x + size, y - size);",
+                    "showPointsLineWidth": 5,
+                    "showPointsRadius": 3,
+                    "showSeparateAxis": false,
+                    "axisPosition": "left",
+                    "comparisonSettings": {
+                      "showValuesForComparison": true
+                    }
+                  },
+                  "_hash": 0.9627739289296962,
+                  "units": "%"
+                },
+                {
+                  "name": "critical_threshold",
+                  "type": "timeseries",
+                  "label": "Critical Threshold",
+                  "color": "rgb(255, 0, 0)",
+                  "settings": {
+                    "excludeFromStacking": false,
+                    "hideDataByDefault": false,
+                    "disableDataHiding": false,
+                    "removeFromLegend": false,
+                    "showLines": true,
+                    "fillLines": false,
+                    "showPoints": false,
+                    "showPointShape": "circle",
+                    "pointShapeFormatter": "var size = radius * Math.sqrt(Math.PI) / 2;\nctx.moveTo(x - size, y - size);\nctx.lineTo(x + size, y + size);\nctx.moveTo(x - size, y + size);\nctx.lineTo(x + size, y - size);",
+                    "showPointsLineWidth": 5,
+                    "showPointsRadius": 3,
+                    "showSeparateAxis": false,
+                    "axisPosition": "right",
+                    "comparisonSettings": {
+                      "showValuesForComparison": true
+                    }
+                  },
+                  "_hash": 0.2684290614495204,
+                  "units": "%"
+                },
+                {
+                  "name": "warning_threshold",
+                  "type": "timeseries",
+                  "label": "Warning Threshold",
+                  "color": "rgb(255, 165, 0)",
+                  "settings": {
+                    "excludeFromStacking": false,
+                    "hideDataByDefault": false,
+                    "disableDataHiding": false,
+                    "removeFromLegend": false,
+                    "showLines": true,
+                    "fillLines": false,
+                    "showPoints": false,
+                    "showPointShape": "circle",
+                    "pointShapeFormatter": "var size = radius * Math.sqrt(Math.PI) / 2;\nctx.moveTo(x - size, y - size);\nctx.lineTo(x + size, y + size);\nctx.moveTo(x - size, y + size);\nctx.lineTo(x + size, y - size);",
+                    "showPointsLineWidth": 5,
+                    "showPointsRadius": 3,
+                    "showSeparateAxis": false,
+                    "axisPosition": "right",
+                    "comparisonSettings": {
+                      "showValuesForComparison": true
+                    }
+                  },
+                  "_hash": 0.4138085251901895,
+                  "units": "%"
+                }
+              ],
+              "entityAliasId": "511f0210-9fa0-0699-5f2b-0ed3a8281540"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "interval": 300000,
+              "timewindowMs": 86400000
+            },
+            "aggregation": {
+              "type": "AVG",
+              "limit": 25000
+            },
+            "hideInterval": false,
+            "hideAggregation": false,
+            "hideAggInterval": false
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "shadowSize": 4,
+            "fontColor": "#545454",
+            "fontSize": 10,
+            "xaxis": {
+              "showLabels": true,
+              "color": "#545454"
+            },
+            "yaxis": {
+              "showLabels": true,
+              "color": "#545454",
+              "min": 0,
+              "max": 100
+            },
+            "grid": {
+              "color": "#545454",
+              "tickColor": "#DDDDDD",
+              "verticalLines": true,
+              "horizontalLines": true,
+              "outlineWidth": 1
+            },
+            "stack": false,
+            "tooltipIndividual": false,
+            "timeForComparison": "months",
+            "xaxisSecond": {
+              "axisPosition": "top",
+              "showLabels": true
+            }
+          },
+          "title": "Last 24 Hours",
+          "dropShadow": true,
+          "enableFullscreen": true,
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "mobileHeight": null,
+          "showTitleIcon": false,
+          "titleIcon": null,
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "enableDataExport": true,
+          "widgetStyle": {},
+          "useDashboardTimewindow": true,
+          "displayTimewindow": false,
+          "showLegend": true,
+          "actions": {},
+          "legendConfig": {
+            "direction": "column",
+            "position": "bottom",
+            "showMin": false,
+            "showMax": false,
+            "showAvg": false,
+            "showTotal": false
+          }
+        },
+        "id": "2d2d45e5-869e-0b4b-bf68-ae0631fc0ee7"
+      },
+      "4719f8cf-000d-a268-a163-335f301d6abc": {
+        "isSystemType": true,
+        "bundleAlias": "cards",
+        "typeAlias": "simple_card",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 24,
+        "sizeY": 4,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "location",
+                  "type": "attribute",
+                  "label": "Location",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.6386723546307749
+                }
+              ],
+              "entityAliasId": "511f0210-9fa0-0699-5f2b-0ed3a8281540"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": false,
+          "backgroundColor": "#eeeeee",
+          "color": "rgb(17, 17, 17)",
+          "padding": "16px",
+          "settings": {
+            "labelPosition": "top"
+          },
+          "title": "New Simple card",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "units": "",
+          "decimals": 0,
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "widgetStyle": {
+            "font-size": "8pt"
+          },
+          "actions": {},
+          "showTitleIcon": false,
+          "titleIcon": null,
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "enableDataExport": false,
+          "displayTimewindow": true
+        },
+        "id": "4719f8cf-000d-a268-a163-335f301d6abc"
       }
     },
     "states": {
@@ -839,22 +960,28 @@
           "main": {
             "widgets": {
               "80c3e5c7-7b5f-f281-a9c8-fab5e6dedf9f": {
-                "sizeX": 6,
-                "sizeY": 9,
-                "row": 0,
+                "sizeX": 7,
+                "sizeY": 7,
+                "row": 4,
                 "col": 0
-              },
-              "e7efab4c-87aa-4063-6435-d19c820cd776": {
-                "sizeX": 18,
-                "sizeY": 9,
-                "mobileHeight": null,
-                "row": 0,
-                "col": 6
               },
               "5c91248a-fe36-9811-1ccf-b668fc0b6491": {
                 "sizeX": 24,
-                "sizeY": 5,
-                "row": 9,
+                "sizeY": 7,
+                "row": 11,
+                "col": 0
+              },
+              "2d2d45e5-869e-0b4b-bf68-ae0631fc0ee7": {
+                "sizeX": 17,
+                "sizeY": 7,
+                "mobileHeight": null,
+                "row": 4,
+                "col": 7
+              },
+              "4719f8cf-000d-a268-a163-335f301d6abc": {
+                "sizeX": 24,
+                "sizeY": 4,
+                "row": 0,
                 "col": 0
               }
             },
@@ -909,8 +1036,8 @@
           ]
         }
       },
-      "8f0311e1-ab62-03f6-5135-739438a03d66": {
-        "id": "8f0311e1-ab62-03f6-5135-739438a03d66",
+      "24ae13cc-a40f-a741-0010-1b893575c590": {
+        "id": "24ae13cc-a40f-a741-0010-1b893575c590",
         "alias": "critical bins",
         "filter": {
           "type": "entityGroup",
@@ -939,7 +1066,7 @@
     },
     "settings": {
       "stateControllerId": "entity",
-      "showTitle": false,
+      "showTitle": true,
       "showDashboardsSelect": true,
       "showEntitiesSelect": false,
       "showDashboardTimewindow": true,
@@ -948,5 +1075,5 @@
       "titleColor": "rgba(0,0,0,0.870588)"
     }
   },
-  "name": "Bins"
+  "name": "Watford bins"
 }

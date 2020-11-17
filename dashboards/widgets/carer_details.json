@@ -1,0 +1,109 @@
+{
+  "widget": {
+    "isSystemType": false,
+    "bundleAlias": "better_widgets",
+    "typeAlias": "better_attributes_card",
+    "type": "latest",
+    "title": "New widget",
+    "sizeX": 13,
+    "sizeY": 6,
+    "config": {
+      "datasources": [
+        {
+          "type": "entity",
+          "dataKeys": [
+            {
+              "name": "first_name",
+              "type": "attribute",
+              "label": "First name",
+              "color": "#2196f3",
+              "settings": {},
+              "_hash": 0.8561641184968625
+            },
+            {
+              "name": "last_name",
+              "type": "attribute",
+              "label": "Last name",
+              "color": "#4caf50",
+              "settings": {},
+              "_hash": 0.007739358203941005
+            },
+            {
+              "name": "email",
+              "type": "attribute",
+              "label": "Email address",
+              "color": "#f44336",
+              "settings": {},
+              "_hash": 0.35150759779020546
+            },
+            {
+              "name": "mobile",
+              "type": "attribute",
+              "label": "Mobile number",
+              "color": "#ffc107",
+              "settings": {},
+              "_hash": 0.6821655138297728
+            }
+          ],
+          "entityAliasId": "98c42eb6-418e-1ab8-a614-9dbcfa790af9"
+        }
+      ],
+      "timewindow": {
+        "realtime": {
+          "timewindowMs": 60000
+        }
+      },
+      "showTitle": true,
+      "backgroundColor": "#fff",
+      "color": "rgba(0, 0, 0, 0.87)",
+      "padding": "8px",
+      "settings": {},
+      "title": "Carer details",
+      "showTitleIcon": false,
+      "titleIcon": null,
+      "iconColor": "rgba(0, 0, 0, 0.87)",
+      "iconSize": "24px",
+      "titleTooltip": "",
+      "dropShadow": true,
+      "enableFullscreen": true,
+      "enableDataExport": true,
+      "widgetStyle": {},
+      "titleStyle": {
+        "fontSize": "16px",
+        "fontWeight": 400
+      },
+      "useDashboardTimewindow": true,
+      "displayTimewindow": true,
+      "showLegend": false,
+      "actions": {}
+    },
+    "id": "f8f381d5-ecff-f987-20a0-f6f88a924b6f"
+  },
+  "aliasesInfo": {
+    "datasourceAliases": {
+      "0": {
+        "alias": "Current Carer",
+        "filter": {
+          "type": "assetSearchQuery",
+          "resolveMultiple": false,
+          "rootStateEntity": true,
+          "stateEntityParamName": "current_sensor",
+          "defaultStateEntity": null,
+          "rootEntity": null,
+          "direction": "TO",
+          "maxLevel": 1,
+          "relationType": null,
+          "assetTypes": [
+            "Carer"
+          ]
+        }
+      }
+    },
+    "targetDeviceAliases": {}
+  },
+  "originalSize": {
+    "sizeX": 13,
+    "sizeY": 6
+  },
+  "originalColumns": 24
+}
